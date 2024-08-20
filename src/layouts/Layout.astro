@@ -45,13 +45,6 @@ const ogImage = image || resolvedImageWithDomain;
             description={headDesc}
             canonical={canonicalURL}
             languageAlternates={alternates}
-            twitter={{
-                creator: '@LiWen563',
-                site: '@LiWen563',
-                card: 'summary_large_image',
-                imageAlt: headTitle,
-                description: headDesc,
-            }}
             openGraph={{
                 basic: {
                     url: canonicalURL,
@@ -79,14 +72,14 @@ const ogImage = image || resolvedImageWithDomain;
             j.async=true;
             j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
             f.parentNode?.insertBefore(j,f);
-        })('dataLayer','GTM-N69NVBDF');
+        })('dataLayer','');
         </script>
         <!-- End Google Tag Manager -->
         </script>
     </head>
     <body>
         <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N69NVBDF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
         <slot />
     </body>

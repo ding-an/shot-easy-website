@@ -9,7 +9,7 @@ const l = getLang(locale);
 const t = l.editor;
 const extLink = {
     'Edge': 'https://microsoftedge.microsoft.com/addons/detail/kncmnbknmjfaejmkcogljhkehippifho',
-    'Firefox': 'https://addons.mozilla.org/zh-CN/firefox/addon/shoteasy/',
+    'Firefox': 'https://addons.mozilla.org/zh-CN/firefox/addon/ImgTools/',
     'Chrome': 'https://chromewebstore.google.com/detail/nmppkehciohcgcehlnifgeokgioidknh'
 } as {[key: string]: string}
 const browserType = getBrowserType(Astro.request?.headers?.get('User-Agent'));
@@ -19,16 +19,6 @@ const browserType = getBrowserType(Astro.request?.headers?.get('User-Agent'));
     <h1 class="text-4xl text-center leading-[42px] font-extrabold mb-2 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">{t.feature}</h1>
     <p class="text-center"><span>{t.noSign}</span><span>{t.online} </span><span class="bg-[#df41f8] inline-block font-extrabold bg-clip-text text-transparent">{t.free} ✨</span></p>
     <div class="flex flex-col items-center gap-1 justify-center pt-4 pb-3">
-        <a
-            href={extLink[browserType] || extLink.Chrome}
-            title="ShotEasy chrome extension"
-            target="_blank"
-            class="py-3 flex gap-2 items-center px-4 rounded-full text-sm mt-4 mb-2 bg-slate-800 text-white select-none hover:bg-slate-600"
-        >
-            <BrowserIcon type={browserType} width={20} height={20} />
-            <span>{t.extension}</span>
-            <!-- <div class="text-white rounded-full bg-rose-500 text-xs absolute px-2 -top-2 -right-8">{t.coming}</div> -->
-        </a>
         <p class="text-xs opacity-80 text-center">{t.capture}</p>
         <p class="text-xs opacity-80">{t.instantly}</p>
     </div>
@@ -73,9 +63,6 @@ const browserType = getBrowserType(Astro.request?.headers?.get('User-Agent'));
         </div>
     </section>
     <Privacy />
-    <section class="text-center text-xs text-slate-400 [&_a]:underline">
-        Image Editor by <a href="https://github.com/scaleflex/filerobot-image-editor" target="_blank" rel="noopener noreferrer">Filerobot Image Editor</a>
-    </section>
 </div>
 <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",

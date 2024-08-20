@@ -1,18 +1,18 @@
-# ShotEasy - take a screenshot online
+# ImgTools - take a screenshot online
 
 Photo edit online for free, resize, and filter any photos, edit photo on browser, convert image to jpg/png/jpeg/webp, easy to screenshot area or full page
 
 [🏆 Chrome Extension](https://chromewebstore.google.com/detail/nmppkehciohcgcehlnifgeokgioidknh)
 
-[🏞️ Image Editor](https://shoteasy.fun/)
+[🏞️ Image Editor](https://ImgTools.fun/)
 
-[😱 Screenshot Beautifier](https://shoteasy.fun/screenshot-beautifier/)
+[😱 Screenshot Beautifier](https://ImgTools.fun/screenshot-beautifier/)
 
-[🚴 Photo to Rounded](https://shoteasy.fun/photo-to-rounded/)
+[🚴 Photo to Rounded](https://ImgTools.fun/photo-to-rounded/)
 
-[🎉 Background Remover](https://shoteasy.fun/background-remover/)
+[🎉 Background Remover](https://ImgTools.fun/background-remover/)
 
-[😬 Image Compressor](https://shoteasy.fun/image-compressor/)
+[😬 Image Compressor](https://ImgTools.fun/image-compressor/)
 
 ## Blog
 
@@ -39,16 +39,14 @@ GITHUB_REPO=
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
+| Command                    | Action                                           |
+| :------------------------- | :----------------------------------------------- |
 | `pnpm install`             | Installs dependencies                            |
 | `pnpm run dev`             | Starts local dev server at `localhost:4321`      |
 | `pnpm run build`           | Build your production site to `./dist/`          |
 | `pnpm run preview`         | Preview your build locally, before deploying     |
 | `pnpm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm run astro -- --help` | Get help using the Astro CLI                     |
-
-
 
 ## 🚀 Deploy With Vercel
 
@@ -59,7 +57,6 @@ All commands are run from the root of the project, from a terminal:
 ### If you find anything wrong, give me an Issues
 
 [Give me the bugs](https://github.com/CH563/shot-easy-website/issues)
-
 
 ## 👀 Want to learn more?
 
