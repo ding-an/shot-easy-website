@@ -10,8 +10,6 @@ Photo edit online for free, resize, and filter any photos, edit photo on browser
 
 [🚴 Photo to Rounded](https://ImgTools.fun/photo-to-rounded/)
 
-[🎉 Background Remover](https://ImgTools.fun/background-remover/)
-
 [😬 Image Compressor](https://ImgTools.fun/image-compressor/)
 
 ## Blog
