@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ImgTools.fun/sitemap-index.xml
+Sitemap: https://www.img-tools.app/sitemap-index.xml
