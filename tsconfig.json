@@ -1,11 +1,12 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "strict": false,
     "baseUrl": "src",
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "noUnusedLocals": false,
-    "paths" : {
+    "paths": {
       "@components/*": ["components/*"],
       "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"],
@@ -13,7 +14,9 @@
       "@engines/*": ["engines/*"],
       "@states/*": ["states/*"],
       "@static/*": ["static/*"],
-      "@i18n/*": ["i18n/*"]
+      "@i18n/*": ["i18n/*"],
+      "@configs/*": ["configs/*"],
+      "@utils/*": ["utils/*"]
     }
   }
 }

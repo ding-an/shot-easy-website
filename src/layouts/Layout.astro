@@ -82,5 +82,30 @@ const ogImage = image || resolvedImageWithDomain;
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
         <slot />
+        <script>
+import { signIn, initApp } from "@utils/firebase";
+initApp();
+            (function() {
+                const user = localStorage.getItem("user");
+                const a = document.querySelector("nav a:last-child");
+
+                if (user) {
+                    console.log(user);
+                    a.textContent = "Logout";
+                    a.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        localStorage.removeItem("user");
+                        location.reload();
+                    });
+                } else {
+                    a.textContent = "Login";
+                    a.addEventListener("click", async (e) => {
+                        const data = await signIn();
+                        localStorage.setItem("user", JSON.stringify(data));
+                        location.reload();
+                    });
+                }
+            })();
+        </script>
     </body>
 </html>
