@@ -14,26 +14,26 @@ import { post } from "./request";
 
 const authJson = {
   development: {
-    apiKey: "AIzaSyD4g4OmnuIRDApLoufCzUL-3RTs1aJrc2s",
-    authDomain: "ai-chat-fee8d.firebaseapp.com",
-    projectId: "ai-chat-fee8d",
-    storageBucket: "ai-chat-fee8d.appspot.com",
-    messagingSenderId: "993590619928",
-    appId: "1:993590619928:web:b5db20cb2555a0a59d786d",
-    measurementId: "G-C9LZ8RH876",
+    apiKey: "AIzaSyDY5xIQCXA-RjQprBmNRaZQ6eVLax2nRq8",
+    authDomain: "phantom-e4803.firebaseapp.com",
+    projectId: "phantom-e4803",
+    storageBucket: "phantom-e4803.appspot.com",
+    messagingSenderId: "657142778233",
+    appId: "1:657142778233:web:42722dc312cc78195f47a8",
+    measurementId: "G-KEDZGQ1G2G",
   },
   production: {
-    apiKey: "AIzaSyCbG9HdvuyX9Te3M1J5yJ0YBYjkvMAyCX8",
-    authDomain: "soulfun-92880.firebaseapp.com",
-    projectId: "soulfun-92880",
-    storageBucket: "soulfun-92880.appspot.com",
-    messagingSenderId: "723618079850",
-    appId: "1:723618079850:web:cd6a80570ed4815372d613",
-    measurementId: "G-Q7JYJX3P32",
+    apiKey: "AIzaSyC5xN3muhLSut2YQ85AoSPcWOaWlOntIsE",
+    authDomain: "img-tools-d426c.firebaseapp.com",
+    projectId: "img-tools-d426c",
+    storageBucket: "img-tools-d426c.appspot.com",
+    messagingSenderId: "868278872289",
+    appId: "1:868278872289:web:1f5e03f98ba4ccd96a6fa0",
+    measurementId: "G-KJHTDCCWW5",
   },
 };
 
-export const firebaseConfig = authJson.development;
+export const firebaseConfig = authJson.production;
 
 const provideMap = {
   "google.com": "Google",
