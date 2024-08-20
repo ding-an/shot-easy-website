@@ -59,7 +59,7 @@ function appendQuery(url: string, query: string): string {
 
 const generator = (
   method = "GET",
-  basePath = "https://gwstagingchatapp.relaxops.xyz"
+  basePath = "https://gateway.img-tools.app/web"
 ) => {
   console.log(basePath);
   /**
