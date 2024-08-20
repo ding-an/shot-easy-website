@@ -1,9 +1,9 @@
 export default {
   feature: "Edit, Resize, and Filter any photos",
-  noSign: "No sign up required.",
-  online: "A faster way to edit photos online",
-  free: "for free",
-  extension: "Get ImgTools extension for free",
+  noSign: "",
+  online: "A faster way to edit photos online with your team members",
+  free: "",
+  extension: "Get ImgTools extension",
   coming: "Coming soon",
   capture:
     "Capture your visible screen, a selected area, or even the full page with just a single click.",
