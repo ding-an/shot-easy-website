@@ -1,32 +1,52 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
-import {getLocale, getLang} from '@i18n/index';
-import { CONFIG, LANGUAGES } from '@lib/config';
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getLocale, getLang } from "@i18n/index";
+import { CONFIG, LANGUAGES } from "@lib/config";
 const { locale } = Astro.params;
 const lang = getLocale(locale);
 const l = getLang(locale);
-const languages = LANGUAGES as {[key: string]: string}
-const reg = new RegExp(`/${lang}`, 'i');
-const langUrls = CONFIG.locals.map(item => {
-    const href = new URL((lang === 'en' && item !== 'en' ? item : '') + Astro.url.pathname.replace(reg, item === 'en' ? '': item), Astro.url.origin).toString();
-    return {href, hrefLang: languages[item] || item, isActive: item.toLocaleLowerCase() === lang.toLocaleLowerCase()};
+const languages = LANGUAGES as { [key: string]: string };
+const reg = new RegExp(`/${lang}`, "i");
+const langUrls = CONFIG.locals.map((item) => {
+  const href = new URL(
+    (lang === "en" && item !== "en" ? item : "") +
+      Astro.url.pathname.replace(reg, item === "en" ? "" : item),
+    Astro.url.origin
+  ).toString();
+  return {
+    href,
+    hrefLang: languages[item] || item,
+    isActive: item.toLocaleLowerCase() === lang.toLocaleLowerCase(),
+  };
 });
 ---
 
 <div class="py-8 bg-white">
-    <div class="container grid grid-cols-3 items-center gap-2 text-xs text-gray-500">
-        <!-- <div class="col-span-3 flex justify-start gap-3 text-xs">
+  <div class="container flex items-center gap-2 text-xs text-gray-500">
+    <!-- <div class="col-span-3 flex justify-start gap-3 text-xs">
             {langUrls.map(item => (
                 item.isActive ? <span class="opacity-80 cursor-default">{item.hrefLang}</span> : <a class="hover:text-blue-500 underline" href={item.href} title={item.hrefLang}>{item.hrefLang}</a>
             ))}
         </div> -->
-        <p>Copyright © 2024 ImgTools</p>
-        <div class="flex gap-3 justify-center">
-
-        </div>
-        <div class="flex gap-3 justify-end">
-            <a href={getRelativeLocaleUrl(lang, '/privacy-policy')} class="hover:text-blue-500 underline">{l.privacy}</a>
-            <a href={getRelativeLocaleUrl(lang, '/terms-of-service')} class="hover:text-blue-500 underline">{l.terms}</a>
-        </div>
+    <p></p>
+    <div class="flex-1 gap-3 justify-center">
+      <h3 class="font-bold text-lg mb-6">About Us</h3>
+      Name: Future Fun Intellengic Limited <br />
+      Address: 17/F, Far East Finance Centre, No. 16 Harcourt Road, Hong Kong
+      <br />
+      TEL: +852 65792920 <br />
+      Email: business@futurefun.net <br /> Copyright © 2024 ImgTools
     </div>
+    <div class="flex flex-col gap-3 justify-start">
+      <h3 class="font-bold text-lg mb-6">Resources</h3>
+      <a
+        href={getRelativeLocaleUrl(lang, "/privacy-policy")}
+        class="hover:text-blue-500 underline">{l.privacy}</a
+      >
+      <a
+        href={getRelativeLocaleUrl(lang, "/terms-of-service")}
+        class="hover:text-blue-500 underline">{l.terms}</a
+      >
+    </div>
+  </div>
 </div>
