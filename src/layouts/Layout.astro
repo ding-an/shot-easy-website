@@ -113,9 +113,12 @@ const ogImage = image || resolvedImageWithDomain;
         } else {
           a.textContent = "Login";
           a.addEventListener("click", async (e) => {
+            e.preventDefault();
             const data = await signIn();
-            localStorage.setItem("user", JSON.stringify(data));
-            location.reload();
+            if (data) {
+              localStorage.setItem("user", JSON.stringify(data));
+              location.reload();
+            }
           });
         }
       })();

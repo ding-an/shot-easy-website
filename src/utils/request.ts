@@ -59,7 +59,7 @@ function appendQuery(url: string, query: string): string {
 
 const generator = (
   method = "GET",
-  basePath = "https://gateway.img-tools.app/web"
+  basePath = import.meta.env.PUBLIC_BACKEND_URL
 ) => {
   console.log(basePath);
   /**

@@ -13,7 +13,7 @@ import cookie from "./cookie";
 import { post } from "./request";
 
 const authJson = {
-  development: {
+  staging: {
     apiKey: "AIzaSyDY5xIQCXA-RjQprBmNRaZQ6eVLax2nRq8",
     authDomain: "phantom-e4803.firebaseapp.com",
     projectId: "phantom-e4803",
@@ -33,7 +33,7 @@ const authJson = {
   },
 };
 
-export const firebaseConfig = authJson.production;
+export const firebaseConfig = authJson[import.meta.env.PUBLIC_FIREBASE_ENV];
 
 const provideMap = {
   "google.com": "Google",
