@@ -194,6 +194,8 @@ export default function Beautifier() {
         const dataUrl = canvas.toDataURL();
         toDownloadFile(dataUrl, "ImgTools.png");
         messageApi.success("Download Success!");
+        // @ts-ignore
+        consumeCredits("beautifier");
       })
       .catch((error) => {
         console.log(error);

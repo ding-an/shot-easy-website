@@ -35,6 +35,7 @@ const Compressor = observer(() => {
   const toDownload = (url, name) => {
     toDownloadFile(url, name);
     messageApi.success("Download Success!");
+    consumeCredits("rounded");
   };
 
   const toZip = async () => {
@@ -65,6 +66,8 @@ const Compressor = observer(() => {
     toDownloadFile(URL.createObjectURL(result), "ImgTools.zip");
     setLoading(false);
     messageApi.success("Download Success!");
+    consumeCredits("rounded");
+    consumeCredits("rounded");
   };
 
   const addFolder = async () => {

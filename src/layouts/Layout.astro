@@ -97,6 +97,7 @@ const ogImage = image || resolvedImageWithDomain;
     <slot />
     <script>
       import { signIn, initApp } from "@utils/firebase";
+      import { post } from "@utils/request";
       initApp();
       (function () {
         const user = localStorage.getItem("user");
@@ -121,6 +122,20 @@ const ogImage = image || resolvedImageWithDomain;
             }
           });
         }
+
+        // @ts-ignore
+        window.consumeCredits = async (bizType: string) => {
+          await post('/users/me/equities', {
+            bizType,
+          });
+        }
+        
+        document.querySelectorAll("[data-biz-type]").forEach((element: HTMLElement) => {
+          element.addEventListener("click", async () => {
+            // @ts-ignore 
+            consumeCredits(element.dataset.bizType);
+          });
+        });
       })();
     </script>
   </body>

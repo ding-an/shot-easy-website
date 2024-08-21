@@ -94,6 +94,8 @@ export default function App() {
               const url = editedImageObject.imageBase64;
               const { fullName: fileName } = editedImageObject;
               toDownloadFile(url, fileName);
+              // @ts-ignore
+              consumeCredits("editor");
             }}
             theme={{}}
             annotationsCommon={{

@@ -114,6 +114,8 @@ export default function Rounded() {
   const toDownload = () => {
     toDownloadFile(photoUrl, "ImgTools.png");
     messageApi.success("Download Success!");
+    // @ts-ignore
+    consumeCredits("rounded");
   };
   const toCopy = () => {
     setLoading(true);
