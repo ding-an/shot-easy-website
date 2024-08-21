@@ -64,7 +64,7 @@ export async function signInWithAuth(auth: Auth) {
   const ck_id = cookie.get("ck_id") || "";
 
   const json = await post(
-    `/user/social/login?${qs.stringify({ utm_source, cp_id, ck_id })}`,
+    `/social/login?${qs.stringify({ utm_source, cp_id, ck_id })}`,
     {
       firebaseIdToken,
       utm: `utm_source=${utm_source}&cp_id=${cp_id}&ck_id=${ck_id}`,
