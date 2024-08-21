@@ -14,13 +14,12 @@ import { post } from "./request";
 
 const authJson = {
   staging: {
-    apiKey: "AIzaSyDY5xIQCXA-RjQprBmNRaZQ6eVLax2nRq8",
-    authDomain: "phantom-e4803.firebaseapp.com",
-    projectId: "phantom-e4803",
-    storageBucket: "phantom-e4803.appspot.com",
-    messagingSenderId: "657142778233",
-    appId: "1:657142778233:web:42722dc312cc78195f47a8",
-    measurementId: "G-KEDZGQ1G2G",
+    apiKey: "AIzaSyAX2FX02o4QBszp10jPUl2Yzez9WN3Pzek",
+    authDomain: "img-tools-dev.firebaseapp.com",
+    projectId: "img-tools-dev",
+    storageBucket: "img-tools-dev.appspot.com",
+    messagingSenderId: "996855337775",
+    appId: "1:996855337775:web:6839982a5e99597f6ac7da",
   },
   production: {
     apiKey: "AIzaSyC5xN3muhLSut2YQ85AoSPcWOaWlOntIsE",
