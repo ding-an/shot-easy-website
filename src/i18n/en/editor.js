@@ -1,13 +1,13 @@
 export default {
-  feature: "Edit, Resize, and Filter any photos",
+  feature: "Transform Your Images with Ease",
   noSign: "",
-  online: "A faster way to edit photos online with your team members",
+  online: "Collaborative online photo editing, simplified and streamlined",
   free: "",
   extension: "Get ImgTools extension",
   coming: "Coming soon",
   capture:
-    "Capture your visible screen, a selected area, or even the full page with just a single click.",
-  instantly: "And editing, elevate your Screenshots Instantly!",
+    "Snap it, edit it, perfect it - all in one place. Capture your screen, a specific area, or an entire webpage effortlessly.",
+  instantly: "From capture to polish: Elevate your screenshots in seconds!",
   how: "How to take a screenshot",
   take: "Take a screenshot",
   use: "Ues ImgTools browser extension capture the visible screen, a selected area, or even the full page with just a single click. Or upload an photo from your local disk and clipboard. Or write some thing with markdown.",
