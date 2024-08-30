@@ -38,13 +38,9 @@ const useHandlers = () => {
 			const { status, statusDes } = data
 
 			if (status === ORDER_STATUS.PAID) {
-				clean()
 				alert.success('payment successful')
-				const user = JSON.parse(localStorage.getItem('user'))
-				if (user) {
-					const json = await get(`/v2/users/me/equities`)
-					document.getElementById('current-credits').innerText = json.data.credits
-				}
+				clean()
+				location.href = '/pricing'
 				// 订单失败了
 			} else if (status === ORDER_STATUS.FAILED) {
 				setPolling(false)
