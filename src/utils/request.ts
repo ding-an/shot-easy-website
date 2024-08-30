@@ -19,10 +19,9 @@ function compose_headers(
   if (token) {
     baseHeaders.append(website.auth_header, token);
   }
-  const deviceId = cookie.get(
-    website.device_id_key,
-    cookieText || "web-page-device-id"
-  );
+  const deviceId =
+    cookie.get(website.device_id_key, cookieText) ||
+    "303e63a1-a46c-45f6-b7f0-50c4c0d14485";
 
   if (deviceId) {
     baseHeaders.append(website.device_id_key, deviceId);
