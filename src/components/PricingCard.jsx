@@ -1,6 +1,6 @@
 /** @format */
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { get } from '@utils/request'
 import PricingSelect from '@components/payssion/PricingSelect'
 import useHandlers from './payssion/hooks/useHandlers'
@@ -8,6 +8,7 @@ import useHandlers from './payssion/hooks/useHandlers'
 export default function PricingCard() {
 	const [products, setProducts] = useState([])
 	const [product, setProduct] = useState(null)
+	const loginRef = useRef(null)
 	const handlers = useHandlers()
 	const {
 		paymentList,
@@ -29,13 +30,18 @@ export default function PricingCard() {
 		<>
 			<div className='space-y-8 lg:grid lg:grid-cols-3 sm:gap-3 xl:gap-5 lg:space-y-0'>
 				{products.map(product => (
-					<div key={product.id} className='flex flex-col p-3 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-4 dark:bg-gray-800 dark:text-white'>
+					<div
+						key={product.id}
+						className='flex flex-col p-3 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-4 dark:bg-gray-800 dark:text-white'
+					>
 						<h3 className='mb-4 text-2xl font-semibold'>Starter</h3>
 						<p className='font-light text-gray-500 sm:text-lg dark:text-gray-400'>
 							Best option for personal use & for your next project.
 						</p>
 						<div className='flex justify-center items-baseline my-8'>
-							<span className='mr-2 text-5xl font-extrabold'>${product.price}</span>
+							<span className='mr-2 text-5xl font-extrabold'>
+								${product?.discount?.price || product.price}
+							</span>
 						</div>
 						<ul role='list' className='mb-8 space-y-4 text-left text-sm'>
 							<li className='flex items-center space-x-3'>
@@ -88,8 +94,13 @@ export default function PricingCard() {
 							href='#'
 							className='text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900'
 							onClick={() => {
-								setVisible(true)
-								setProduct(product)
+								const user = localStorage.getItem('user')
+								if (!user) {
+									loginRef.current.click()
+								} else {
+									setVisible(true)
+									setProduct(product)
+								}
 							}}
 						>
 							Get started
@@ -97,6 +108,7 @@ export default function PricingCard() {
 					</div>
 				))}
 			</div>
+			<a ref={loginRef} href='/continue-with-google/' title=''></a>
 			<PricingSelect {...handlers} product={product} />
 		</>
 	)

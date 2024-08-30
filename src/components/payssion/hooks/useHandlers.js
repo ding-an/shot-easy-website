@@ -99,6 +99,7 @@ const useHandlers = () => {
 			? 1000
 			: undefined
 	)
+	const user = localStorage.getItem('user')
 
 	useEffect(() => {
 		// 初始化获取支付方式列表
@@ -111,8 +112,8 @@ const useHandlers = () => {
 			}
 		}
 
-		_init()
-	}, [])
+		user && _init()
+	}, [user])
 
 	useEffect(() => {
 		if (order_id) {
