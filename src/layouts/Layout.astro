@@ -103,7 +103,7 @@ const ogImage = image || resolvedImageWithDomain;
         const user = localStorage.getItem("user");
         const a = document.querySelector("nav a:last-child");
 
-        if (user) {
+        if (user && user !== "undefined") {
           console.log(user);
           a.textContent = "Logout";
           a.addEventListener("click", (e) => {
