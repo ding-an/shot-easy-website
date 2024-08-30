@@ -26,7 +26,7 @@ const useHandlers = () => {
 	const [orderInfo, setOrderInfo] = useState(null)
 	// 轮询中
 	const [polling, setPolling] = useState(false)
-	const order_id = window.location.search.split('=')[1]
+	const order_id = new URLSearchParams(window.location.search)?.get('order_id')
 	let clean
 
 	const getOrderStatus = async () => {
@@ -40,6 +40,11 @@ const useHandlers = () => {
 			if (status === ORDER_STATUS.PAID) {
 				clean()
 				alert.success('payment successful')
+				const user = JSON.parse(localStorage.getItem('user'))
+				if (user) {
+					const json = await get(`/v2/users/me/equities`)
+					document.getElementById('current-credits').innerText = json.data.credits
+				}
 				// 订单失败了
 			} else if (status === ORDER_STATUS.FAILED) {
 				setPolling(false)
