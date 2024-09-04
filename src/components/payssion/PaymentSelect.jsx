@@ -2,7 +2,11 @@
 
 const PaymentSelect = ({ options, value, onChange }) => {
 	if (!options.length) {
-		return <div className='flex h-full w-full items-center justify-center loading'></div>
+		return (
+			<div className='flex h-full w-full items-center justify-center loading'>
+				No wallet available
+			</div>
+		)
 	}
 
 	return (
