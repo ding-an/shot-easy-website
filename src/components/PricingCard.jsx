@@ -22,7 +22,21 @@ export default function PricingCard() {
 	} = handlers
 	useEffect(() => {
 		get(`/products`, { type: 1 }).then(({ data }) => {
-			setProducts(data)
+			const extraInfo = [
+				{
+					title: 'Starter Package',
+					desc: 'Best option for personal use & for your next project.',
+				},
+				{
+					title: 'Basic Package',
+					desc: 'Relevant for multiple users, extended & premium support.',
+				},
+				{
+					title: 'Premium Package',
+					desc: 'Best for large scale uses and extended redistribution rights.',
+				},
+			]
+			setProducts(data.map((product, index) => ({ ...product, ...(extraInfo[index] || {}) })))
 		})
 	}, [])
 
@@ -34,10 +48,8 @@ export default function PricingCard() {
 						key={product.id}
 						className='flex flex-col p-3 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-4 dark:bg-gray-800 dark:text-white'
 					>
-						<h3 className='mb-4 text-2xl font-semibold'>Starter</h3>
-						<p className='font-light text-gray-500 sm:text-lg dark:text-gray-400'>
-							Best option for personal use & for your next project.
-						</p>
+						<h3 className='mb-4 text-2xl font-semibold'>{product.title}</h3>
+						<p className='font-light text-gray-500 sm:text-lg dark:text-gray-400'>{product.desc}</p>
 						<div className='flex justify-center items-baseline my-8'>
 							<span className='mr-2 text-5xl font-extrabold'>
 								${product?.discount?.price || product.price}
