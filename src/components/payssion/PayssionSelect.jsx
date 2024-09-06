@@ -5,7 +5,7 @@ import { Spin } from 'antd'
 import PaymentSelect from './PaymentSelect'
 import { get } from '@utils/request'
 
-export default function PricingSelect({
+export default function PayssionSelect({
 	paymentList,
 	selectedPayment,
 	setSelectedPayment,
