@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { useInterval } from 'ahooks'
 
-import alert from '../Toast'
+import alert from '../../Toast'
 import { get, post } from '@utils/request'
 
 const ORDER_STATUS = {
