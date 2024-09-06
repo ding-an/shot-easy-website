@@ -5,7 +5,7 @@ import { Spin } from 'antd'
 import PaymentSelect from './PaymentSelect'
 import { get } from '@utils/request'
 
-export default function PricingSelect({
+export default function PayssionSelect({
 	paymentList,
 	selectedPayment,
 	setSelectedPayment,
@@ -57,9 +57,13 @@ export default function PricingSelect({
 				<div className='w-full pt-6'>
 					<button
 						className={`bg-primary-600 hover:bg-primary-700 h-[56px] text-white w-full rounded-3xl text-base font-medium ${
-							!selectedPayment ? 'disabled cursor-not-allowed opacity-80' : 'cursor-pointer'
+							paymentList.length
+								? !selectedPayment
+									? 'disabled cursor-not-allowed opacity-80'
+									: 'cursor-pointer'
+								: 'disabled cursor-not-allowed opacity-40 bg-gray-600 hover:bg-gray-700'
 						} ${creating && 'disabled cursor-not-allowed'}`}
-						onClick={() => createOrder(selectedPayment, product)}
+						onClick={() => paymentList.length ? createOrder(selectedPayment, product) : null}
 					>
 						{creating ? <Spin /> : 'Continue'}
 					</button>
