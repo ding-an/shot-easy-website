@@ -1,6 +1,6 @@
 /** @format */
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { get } from '@utils/request'
 import PayssionSelect from '@components/payssion/PayssionSelect'
 import usePaddlesHandlers from './paddle/hooks/useHandlers'
@@ -11,7 +11,6 @@ export default function PricingCard() {
 	const [products, setProducts] = useState([])
 	const [product, setProduct] = useState(null)
 	const [currentIndex, setCurrentIndex] = useState(0)
-	const loginRef = useRef(null)
 	const handlers = useHandlers()
 	const { setVisible } = handlers
 	const { createOrder, creating } = usePaddlesHandlers()
@@ -105,7 +104,8 @@ export default function PricingCard() {
 								onClick={() => {
 									const user = localStorage.getItem('user')
 									if (!user) {
-										loginRef.current.click()
+										const login = document.getElementById('login')
+										login.click()
 									} else {
 										setVisible(true)
 										setProduct(product)
@@ -116,13 +116,14 @@ export default function PricingCard() {
 							</a>
 							<a
 								href='#'
-								className={`text-white hidden bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900 ${
+								className={`text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900 ${
 									creating && index === currentIndex && 'cursor-not-allowed'
 								}`}
 								onClick={() => {
 									const user = localStorage.getItem('user')
 									if (!user) {
-										loginRef.current.click()
+										const login = document.getElementById('login')
+										login.click()
 									} else {
 										createOrder(product)
 										setCurrentIndex(index)
@@ -135,7 +136,6 @@ export default function PricingCard() {
 					</div>
 				))}
 			</div>
-			<a ref={loginRef} href='/continue-with-google/' title=''></a>
 			<PayssionSelect {...handlers} product={product} />
 		</>
 	)
