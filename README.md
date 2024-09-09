@@ -59,3 +59,16 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## checklist
+- request header x-country
+
+```
+  const cfCountryCode = isBrowser ? window.cf_country_code : cookie.get('cf_country_code', cookieText || '')
+  if (process.env.NODE_ENV === 'development') {
+    baseHeaders.append('X-COUNTRY', 'GB')
+  } else {
+    cfCountryCode && baseHeaders.append('X-COUNTRY', cfCountryCode)
+  }
+
+```
