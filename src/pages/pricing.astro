@@ -21,10 +21,16 @@ import PricingCard from '@components/PricingCard'
                     Current Credits: <span id="current-credits">0</span>
                     <script>
                         import { get } from '@utils/request';
-                        const user = JSON.parse(localStorage.getItem('user'));
-                        if (user) {
-                            const json = await get(`/v2/users/me/equities`);
-                            document.getElementById('current-credits').innerText = json.data.credits
+                        try {
+                          const user = JSON.parse(localStorage.getItem('user'));
+                          if (user) {
+                              const json = await get(`/v2/users/me/equities`);
+                              document.getElementById('current-credits').innerText = json.data.credits
+                          }
+                        } catch(err) {
+                          console.log(err)
+                          // user === 'undefined'
+                          localStorage.removeItem('user');
                         }
                     </script>
                 </div>
