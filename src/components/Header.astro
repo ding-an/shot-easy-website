@@ -47,7 +47,8 @@ const navList = [
     {
         pathname: getRelativeLocaleUrl(lang, '/continue-with-google'),
         title: 'Continue with Google',
-        name: 'Login'
+        name: 'Login',
+        id: "login"
     },
 ];
 ---
@@ -57,7 +58,7 @@ const navList = [
     <nav class="flex gap-2 text-sm text-slate-600 bg-white rounded-3xl p-1 px-2 [&_span]:rounded-xl [&_span]:px-2 [&_span]:bg-blue-600 [&_span]:text-white [&_a]:rounded-xl [&_a]:px-2 hover:[&_a]:bg-sky-50 hover:[&_a]:text-blue-600">
         {navList.map(item => {
             if (pathname.toLocaleLowerCase() === item.pathname.toLocaleLowerCase()) return (<span>{item.name}</span>)
-            return (<a href={item.pathname} title={item.title}>{item.name}</a>)
+            return (<a href={item.pathname} title={item.title} id={item.id}>{item.name}</a>)
         })}
     </nav>
 </header>
