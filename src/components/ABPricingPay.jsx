@@ -4,16 +4,21 @@ import { useEffect } from 'react'
 import { initializePaddle } from '@paddle/paddle-js'
 import alert from './Toast'
 
+const channelMap = {
+	paddle: 16,
+	payssion: 9,
+}
+
 export default function ABPricingPay() {
 	useEffect(() => {
 		const urlSearchParams = new URLSearchParams(window.location.search)
-		const clientSecret = urlSearchParams.get('clientSecret')
-		const spOrderId = urlSearchParams.get('spOrderId')
 		const returnUrl = urlSearchParams.get('returnUrl')
 		const channel = urlSearchParams.get('channel')
 		const token = urlSearchParams.get('token')
 		// 地址栏没有token时
-		if (Number(channel) === 16 && !token) {
+		if (Number(channel) === channelMap.paddle && !token) {
+			const clientSecret = urlSearchParams.get('clientSecret')
+			const spOrderId = urlSearchParams.get('spOrderId')
 			try {
 				let paddle
 				initializePaddle({
@@ -41,6 +46,9 @@ export default function ABPricingPay() {
 			} catch (err) {
 				alert.error(err.message)
 			}
+		} else if (Number(channel) === channelMap.payssion) {
+			const payUrl = urlSearchParams.get('payUrl')
+			location.href = payUrl
 		}
 	}, [])
 	return null

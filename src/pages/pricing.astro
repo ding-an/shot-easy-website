@@ -11,7 +11,7 @@ import ABPricingPay from '@components/ABPricingPay'
         <div class="z-0 absolute w-80 h-60 bg-blue-600 blur-[80px] opacity-30 -top-20 -right-20"></div>
         <div class="z-0 absolute w-80 h-60 bg-blue-400 blur-[80px] opacity-30 top-40 left-40"></div>
         <div class="z-0 absolute w-80 h-60 bg-purple-400 blur-[80px] opacity-30 top-40 right-40"></div>
-        <div id="pricingWrapper">
+        <div id="pricingWrapper" class="hidden">
           <Header />
           <section class="bg-white dark:bg-gray-900">
               <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
@@ -45,10 +45,12 @@ import ABPricingPay from '@components/ABPricingPay'
         <script>
           import cookie from '@utils/cookie'
           const urlSearchParams = new URLSearchParams(window.location.search)
-          const returnUrl = urlSearchParams.get('returnUrl')
+		      const channel = urlSearchParams.get('channel')
           const token = urlSearchParams.get('token')
-          if (returnUrl) {
+          if (channel) {
             document.getElementById('pricingWrapper').style.display = 'none'
+          } else {
+            document.getElementById('pricingWrapper').style.display = 'block'
           }
           if (token) {
             cookie.set('access_token', token, 31536000000)
