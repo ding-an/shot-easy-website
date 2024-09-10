@@ -13,7 +13,7 @@ const useHandlers = () => {
 	const [creating, setCreating] = useState(false)
 
 	// 创建订单
-	const createOrder = async product => {
+	const createOrder = async (product, callback) => {
 		try {
 			const { id: productId, quantity } = product
 			setCreating(true)
@@ -36,8 +36,11 @@ const useHandlers = () => {
 						alert.success('payment successful')
 						paddle.Checkout.close()
 						setTimeout(() => {
-							location.href = '/pricing'
+							callback ? callback() : (location.href = '/pricing')
 						}, 2000)
+					} else if (data.name === 'checkout.closed') {
+						// 关闭
+						callback?.()
 					}
 				},
 			}).then(paddleInstance => {
