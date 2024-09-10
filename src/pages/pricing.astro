@@ -3,6 +3,7 @@ import Layout from '@layouts/Layout.astro';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import PricingCard from '@components/PricingCard'
+import ABPricingPay from '@components/ABPricingPay'
 ---
 
 <Layout title='ImgTools - Light and easy-to-use screenshot tool'>
@@ -10,34 +11,54 @@ import PricingCard from '@components/PricingCard'
         <div class="z-0 absolute w-80 h-60 bg-blue-600 blur-[80px] opacity-30 -top-20 -right-20"></div>
         <div class="z-0 absolute w-80 h-60 bg-blue-400 blur-[80px] opacity-30 top-40 left-40"></div>
         <div class="z-0 absolute w-80 h-60 bg-purple-400 blur-[80px] opacity-30 top-40 right-40"></div>
-        <Header />
-        <section class="bg-white dark:bg-gray-900">
-            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-                <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Designed for business teams like yours</h2>
-                    <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Here at ImgTools we focus on design markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
-                </div>
-                <div class="my-8 text-center">
-                    Current Credits: <span id="current-credits">0</span>
-                    <script>
-                        import { get } from '@utils/request';
-                        try {
-                          const user = JSON.parse(localStorage.getItem('user'));
-                          if (user) {
-                              const json = await get(`/v2/users/me/equities`);
-                              document.getElementById('current-credits').innerText = json.data.credits
+        <div id="pricingWrapper">
+          <Header />
+          <section class="bg-white dark:bg-gray-900">
+              <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+                  <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+                      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Designed for business teams like yours</h2>
+                      <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Here at ImgTools we focus on design markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+                  </div>
+                  <div class="my-8 text-center">
+                      Current Credits: <span id="current-credits">0</span>
+                      <script>
+                          import { get } from '@utils/request';
+                          try {
+                            const user = JSON.parse(localStorage.getItem('user'));
+                            if (user) {
+                                const json = await get(`/v2/users/me/equities`);
+                                document.getElementById('current-credits').innerText = json.data.credits
+                            }
+                          } catch(err) {
+                            console.log(err)
+                            // user === 'undefined'
+                            localStorage.removeItem('user');
                           }
-                        } catch(err) {
-                          console.log(err)
-                          // user === 'undefined'
-                          localStorage.removeItem('user');
-                        }
-                    </script>
-                </div>
-                <PricingCard client:only="react" />
-            </div>
-          </section>
-        <Footer />
+                      </script>
+                  </div>
+                  <PricingCard client:only="react" />
+              </div>
+            </section>
+          <Footer />
+        </div>
+        <ABPricingPay client:only='react' />
+        <script>
+          import cookie from '@utils/cookie'
+          const urlSearchParams = new URLSearchParams(window.location.search)
+          const productId = urlSearchParams.get('productId')
+          const quantity = urlSearchParams.get('quantity')
+          const returnUrl = urlSearchParams.get('returnUrl')
+          const channel = urlSearchParams.get('channel')
+          const token = urlSearchParams.get('token')
+          if (returnUrl) {
+            document.getElementById('pricingWrapper').style.display = 'none'
+            cookie.set('access_token', token, 31536000000)
+            localStorage.setItem('returnUrl', returnUrl)
+            localStorage.setItem('productId', productId)
+            localStorage.setItem('quantity', quantity)
+            localStorage.setItem('channel', channel)
+          }
+        </script>
     </main>
 </Layout>
 
