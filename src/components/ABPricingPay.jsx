@@ -48,7 +48,15 @@ export default function ABPricingPay() {
 			}
 		} else if (Number(channel) === channelMap.payssion) {
 			const payUrl = urlSearchParams.get('payUrl')
-			location.href = payUrl
+			const transaction_id = urlSearchParams.get('transaction_id')
+			const order_id = urlSearchParams.get('order_id')
+			if (transaction_id && order_id) {
+        // 跳回去A站
+				location.href = payUrl + '?transaction_id=' + transaction_id + '&order_id=' + order_id
+			} else {
+        // 跳支付站
+				location.href = payUrl
+			}
 		}
 	}, [])
 	return null
