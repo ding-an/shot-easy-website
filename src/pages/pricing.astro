@@ -45,17 +45,10 @@ import ABPricingPay from '@components/ABPricingPay'
         <script>
           import cookie from '@utils/cookie'
           const urlSearchParams = new URLSearchParams(window.location.search)
-          const productId = urlSearchParams.get('productId')
-          const quantity = urlSearchParams.get('quantity')
           const returnUrl = urlSearchParams.get('returnUrl')
-          const channel = urlSearchParams.get('channel')
           const token = urlSearchParams.get('token')
           if (returnUrl) {
             document.getElementById('pricingWrapper').style.display = 'none'
-            localStorage.setItem('returnUrl', returnUrl)
-            localStorage.setItem('productId', productId)
-            localStorage.setItem('quantity', quantity)
-            localStorage.setItem('channel', channel)
           }
           if (token) {
             cookie.set('access_token', token, 31536000000)
