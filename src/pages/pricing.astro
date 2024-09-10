@@ -52,11 +52,22 @@ import ABPricingPay from '@components/ABPricingPay'
           const token = urlSearchParams.get('token')
           if (returnUrl) {
             document.getElementById('pricingWrapper').style.display = 'none'
-            cookie.set('access_token', token, 31536000000)
             localStorage.setItem('returnUrl', returnUrl)
             localStorage.setItem('productId', productId)
             localStorage.setItem('quantity', quantity)
             localStorage.setItem('channel', channel)
+          }
+          if (token) {
+            cookie.set('access_token', token, 31536000000)
+            // 移除地址栏token
+            function removeParameter(url, paramName) {
+              const urlObj = new URL(url);
+              const params = new URLSearchParams(urlObj.search);
+              params.delete(paramName);
+              urlObj.search = params.toString();
+              return urlObj.toString();
+            }
+            location.replace(removeParameter(location.href, 'token'))
           }
         </script>
     </main>
