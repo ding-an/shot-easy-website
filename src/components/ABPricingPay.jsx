@@ -22,7 +22,7 @@ export default function ABPricingPay() {
 			try {
 				let paddle
 				const paddleConfig = {
-					environment: 'live',
+					environment: 'production',
 					token: clientSecret,
 					eventCallback: data => {
 						if (data.data.status === 'completed' || data.name == 'checkout.completed') {
