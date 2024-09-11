@@ -28,8 +28,8 @@ const useHandlers = () => {
 			const { clientSecret, spOrderId } = data
 			setCreating(false)
 			let paddle
-			initializePaddle({
-				environment: 'sandbox',
+			const paddleConfig = {
+        environment: 'live',
 				token: clientSecret,
 				eventCallback: data => {
 					if (data.data.status === 'completed' || data.name == 'checkout.completed') {
@@ -43,7 +43,11 @@ const useHandlers = () => {
 						callback?.()
 					}
 				},
-			}).then(paddleInstance => {
+			}
+			if (import.meta.env.PUBLIC_FIREBASE_ENV === 'staging') {
+				paddleConfig.environment = 'sandbox'
+			}
+			initializePaddle(paddleConfig).then(paddleInstance => {
 				if (paddleInstance) {
 					paddle = paddleInstance
 					paddleInstance.Checkout.open({
