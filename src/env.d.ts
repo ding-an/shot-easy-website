@@ -3,4 +3,5 @@
 
 interface Window {
     dataLayer: any[]
+    cf_country_code: string
 }
