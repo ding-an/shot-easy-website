@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n'
+import { Image } from 'astro:assets'
 import { getLocale, getLang } from '@i18n/index'
 import { CONFIG, LANGUAGES } from '@lib/config'
 const { locale } = Astro.params
@@ -32,13 +33,13 @@ const langUrls = CONFIG.locals.map(item => {
 		<div class='flex-1 flex-col gap-3 justify-start'>
 			<h3 class='font-bold text-lg mb-6'>About Us</h3>
 			<div class='flex gap-6 mb-3'>
-				<img src='/src/static/icon-visa.svg' alt='Visa' class='h-6' />
-				<img src='/src/static/icon-mastercard.svg' alt='MasterCard' class='h-6' />
-				<img src='/src/static/discover.svg' alt='Discover' class='h-6' />
-				<img src='/src/static/apple-pay.svg' alt='Apple Pay' class='h-6' />
-				<img src='/src/static/google-pay.svg' alt='Google Pay' class='h-6' />
+				<Image src='/icon-visa.svg' alt='Visa' width={32} height={32} />
+				<Image src='/icon-mastercard.svg' alt='MasterCard' width={32} height={32} />
+				<Image src='/discover.svg' alt='Discover' width={32} height={32} />
+				<Image src='/apple-pay.svg' alt='Apple Pay' width={32} height={32} />
+				<Image src='/google-pay.svg' alt='Google Pay' width={32} height={32} />
 			</div>
-			<div class="mb-3">
+			<div class='mb-3'>
 				Customer Support: <a class='underline' href='mailto:feedback@img-tools.app'>
 					feedback@img-tools.app
 				</a>
