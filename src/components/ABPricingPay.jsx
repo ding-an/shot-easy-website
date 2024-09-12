@@ -29,11 +29,11 @@ export default function ABPricingPay() {
 							alert.success('payment successful')
 							paddle.Checkout.close()
 							setTimeout(() => {
-								callback ? callback() : (location.href = '/pricing')
+								location.href = returnUrl
 							}, 2000)
 						} else if (data.name === 'checkout.closed') {
 							// 关闭
-							callback?.()
+							location.href = returnUrl
 						}
 					},
 				}
