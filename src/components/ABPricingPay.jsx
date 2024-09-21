@@ -28,7 +28,8 @@ export default function ABPricingPay() {
 					environment: 'production',
 					token: clientSecret,
 					eventCallback: data => {
-						const decryptedUrl = CryptoJS.AES.decrypt(returnUrl, key).toString(CryptoJS.enc.Utf8)
+						const decryptedBytes = CryptoJS.AES.decrypt(window.atob(returnUrl), key)
+						const decryptedUrl = decryptedBytes.toString(CryptoJS.enc.Utf8)
 						if (data.data.status === 'completed' || data.name == 'checkout.completed') {
 							alert.success('payment successful')
 							paddle.Checkout.close()
