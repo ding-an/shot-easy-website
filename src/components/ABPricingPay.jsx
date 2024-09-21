@@ -3,11 +3,14 @@
 import { useEffect } from 'react'
 import { initializePaddle } from '@paddle/paddle-js'
 import alert from './Toast'
+import CryptoJS from 'crypto-js'
+import website from '../configs/website.json'
 
 const channelMap = {
 	paddle: 16,
 	payssion: 9,
 }
+const key = website.paddle_public_key
 
 export default function ABPricingPay() {
 	useEffect(() => {
@@ -25,15 +28,16 @@ export default function ABPricingPay() {
 					environment: 'production',
 					token: clientSecret,
 					eventCallback: data => {
+						const decryptedUrl = CryptoJS.AES.decrypt(returnUrl, key).toString(CryptoJS.enc.Utf8)
 						if (data.data.status === 'completed' || data.name == 'checkout.completed') {
 							alert.success('payment successful')
 							paddle.Checkout.close()
 							setTimeout(() => {
-								location.href = returnUrl
-							}, 2000)
+								location.href = decryptedUrl
+							}, 3000)
 						} else if (data.name === 'checkout.closed') {
 							// 关闭
-							location.href = returnUrl
+							location.href = decryptedUrl
 						}
 					},
 				}
