@@ -3,11 +3,14 @@
 import { useEffect } from 'react'
 import { initializePaddle } from '@paddle/paddle-js'
 import alert from './Toast'
+import CryptoJS from 'crypto-js'
+import website from '../configs/website.json'
 
 const channelMap = {
 	paddle: 16,
 	payssion: 9,
 }
+const key = website.paddle_public_key
 
 export default function ABPricingPay() {
 	useEffect(() => {
@@ -21,21 +24,27 @@ export default function ABPricingPay() {
 			const spOrderId = urlSearchParams.get('spOrderId')
 			try {
 				let paddle
-				initializePaddle({
-					environment: 'sandbox',
+				const paddleConfig = {
+					environment: 'production',
 					token: clientSecret,
 					eventCallback: data => {
+						const decryptedUrl = CryptoJS.AES.decrypt(returnUrl, key).toString(CryptoJS.enc.Utf8)
 						if (data.data.status === 'completed' || data.name == 'checkout.completed') {
 							alert.success('payment successful')
 							paddle.Checkout.close()
 							setTimeout(() => {
-								location.href = returnUrl
-							}, 2000)
+								location.href = decryptedUrl
+							}, 3000)
 						} else if (data.name === 'checkout.closed') {
-							location.href = returnUrl
+							// 关闭
+							location.href = decryptedUrl
 						}
 					},
-				}).then(paddleInstance => {
+				}
+				if (import.meta.env.PUBLIC_FIREBASE_ENV === 'staging') {
+					paddleConfig.environment = 'sandbox'
+				}
+				initializePaddle(paddleConfig).then(paddleInstance => {
 					if (paddleInstance) {
 						paddle = paddleInstance
 						paddleInstance.Checkout.open({
@@ -51,10 +60,10 @@ export default function ABPricingPay() {
 			const transaction_id = urlSearchParams.get('transaction_id')
 			const order_id = urlSearchParams.get('order_id')
 			if (transaction_id && order_id) {
-        // 跳回去A站
+				// 跳回去A站
 				location.href = payUrl + '?transaction_id=' + transaction_id + '&order_id=' + order_id
 			} else {
-        // 跳支付站
+				// 跳支付站
 				location.href = payUrl
 			}
 		}

@@ -1,52 +1,62 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
-import { getLocale, getLang } from "@i18n/index";
-import { CONFIG, LANGUAGES } from "@lib/config";
-const { locale } = Astro.params;
-const lang = getLocale(locale);
-const l = getLang(locale);
-const languages = LANGUAGES as { [key: string]: string };
-const reg = new RegExp(`/${lang}`, "i");
-const langUrls = CONFIG.locals.map((item) => {
-  const href = new URL(
-    (lang === "en" && item !== "en" ? item : "") +
-      Astro.url.pathname.replace(reg, item === "en" ? "" : item),
-    Astro.url.origin
-  ).toString();
-  return {
-    href,
-    hrefLang: languages[item] || item,
-    isActive: item.toLocaleLowerCase() === lang.toLocaleLowerCase(),
-  };
-});
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { Image } from 'astro:assets'
+import { getLocale, getLang } from '@i18n/index'
+import { CONFIG, LANGUAGES } from '@lib/config'
+const { locale } = Astro.params
+const lang = getLocale(locale)
+const l = getLang(locale)
+const languages = LANGUAGES as { [key: string]: string }
+const reg = new RegExp(`/${lang}`, 'i')
+const langUrls = CONFIG.locals.map(item => {
+	const href = new URL(
+		(lang === 'en' && item !== 'en' ? item : '') +
+			Astro.url.pathname.replace(reg, item === 'en' ? '' : item),
+		Astro.url.origin
+	).toString()
+	return {
+		href,
+		hrefLang: languages[item] || item,
+		isActive: item.toLocaleLowerCase() === lang.toLocaleLowerCase(),
+	}
+})
 ---
 
-<div class="py-8 bg-white">
-  <div class="container flex items-center gap-2 text-xs text-gray-500">
-    <!-- <div class="col-span-3 flex justify-start gap-3 text-xs">
+<div class='py-8 bg-white'>
+	<div class='container flex items-center gap-2 text-xs text-gray-500'>
+		<!-- <div class="col-span-3 flex justify-start gap-3 text-xs">
             {langUrls.map(item => (
                 item.isActive ? <span class="opacity-80 cursor-default">{item.hrefLang}</span> : <a class="hover:text-blue-500 underline" href={item.href} title={item.hrefLang}>{item.hrefLang}</a>
             ))}
         </div> -->
-    <p></p>
-    <div class="flex-1 gap-3 justify-center">
-      <h3 class="font-bold text-lg mb-6">About Us</h3>
-      Name: Future Fun Intellengic Limited <br />
-      Address: 17/F, Far East Finance Centre, No. 16 Harcourt Road, Hong Kong
-      <br />
-      TEL: +852 65792920 <br />
-      Email: business@futurefun.net <br /> Copyright © 2024 ImgTools
-    </div>
-    <div class="flex flex-col gap-3 justify-start">
-      <h3 class="font-bold text-lg mb-6">Resources</h3>
-      <a
-        href={getRelativeLocaleUrl(lang, "/privacy-policy")}
-        class="hover:text-blue-500 underline">{l.privacy}</a
-      >
-      <a
-        href={getRelativeLocaleUrl(lang, "/terms-of-service")}
-        class="hover:text-blue-500 underline">{l.terms}</a
-      >
-    </div>
-  </div>
+		<div class='flex-1 flex-col gap-3 justify-start'>
+			<h3 class='font-bold text-lg mb-6'>About Us</h3>
+			<p class="mb-3">Future Fun Intellengic Limited</p>
+			<div class='flex gap-6 mb-3'>
+				<Image src='/icon-visa.svg' alt='Visa' width={32} height={32} />
+				<Image src='/icon-mastercard.svg' alt='MasterCard' width={32} height={32} />
+				<Image src='/discover.svg' alt='Discover' width={32} height={32} />
+				<Image src='/apple-pay.svg' alt='Apple Pay' width={32} height={32} />
+				<Image src='/google-pay.svg' alt='Google Pay' width={32} height={32} />
+			</div>
+			<div class='mb-3'>
+				Customer Support: <a class='underline' href='mailto:feedback@img-tools.app'>
+					feedback@img-tools.app
+				</a>
+			</div>
+			<div>Copyright © 2024 ImgTools</div>
+		</div>
+		<div class='flex flex-col gap-3 justify-start'>
+			<h3 class='font-bold text-lg mb-6'>Resources</h3>
+			<a href={getRelativeLocaleUrl(lang, '/privacy-policy')} class='hover:text-blue-500 underline'>
+				{l.privacy}
+			</a>
+			<a
+				href={getRelativeLocaleUrl(lang, '/terms-of-service')}
+				class='hover:text-blue-500 underline'
+			>
+				{l.terms}
+			</a>
+		</div>
+	</div>
 </div>
