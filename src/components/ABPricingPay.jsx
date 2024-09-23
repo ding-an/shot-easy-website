@@ -14,12 +14,12 @@ const key = website.paddle_public_key
 
 export default function ABPricingPay() {
 	useEffect(() => {
-		const urlSearchParams = new URLSearchParams(window.location.search)
+		const storedParamsString = sessionStorage.getItem('myParams')
+		const urlSearchParams = new URLSearchParams(storedParamsString)
 		const returnUrl = urlSearchParams.get('returnUrl')
 		const channel = urlSearchParams.get('channel')
 		const token = urlSearchParams.get('token')
-		// 地址栏没有token时
-		if (Number(channel) === channelMap.paddle && !token) {
+		if (Number(channel) === channelMap.paddle) {
 			const clientSecret = urlSearchParams.get('clientSecret')
 			const spOrderId = urlSearchParams.get('spOrderId')
 			try {
