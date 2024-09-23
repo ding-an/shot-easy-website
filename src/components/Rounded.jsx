@@ -112,10 +112,16 @@ export default function Rounded() {
   };
 
   const toDownload = () => {
-    toDownloadFile(photoUrl, "ImgTools.png");
-    messageApi.success("Download Success!");
-    // @ts-ignore
-    consumeCredits("rounded");
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || user === 'undefined') {
+      // 跳转到登录页面
+      window.location.href = '/pricing';
+    } else {
+      toDownloadFile(photoUrl, "ImgTools.png");
+      messageApi.success("Download Success!");
+      // @ts-ignore
+      consumeCredits("rounded");
+    }
   };
   const toCopy = () => {
     setLoading(true);
