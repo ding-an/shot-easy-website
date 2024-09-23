@@ -33,6 +33,7 @@ const { title, description, image } = Astro.props;
 const headTitle = title || t.title;
 const headDesc = description || t.description;
 const ogImage = image || resolvedImageWithDomain;
+const gtagId = import.meta.env.NEXT_PUBLIC_GTAG_ID
 ---
 
 <!doctype html>
@@ -82,6 +83,21 @@ const ogImage = image || resolvedImageWithDomain;
       })("dataLayer", "");
     </script>
     <!-- End Google Tag Manager -->
+      {gtagId && (
+        <>
+          <script src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`} async />
+          <script
+            id="google"
+          >
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){
+              dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', '{gtagId}');
+          </script>
+        </>
+      )}
   </head>
 
   <body>
