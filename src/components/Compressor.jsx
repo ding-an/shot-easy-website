@@ -33,9 +33,16 @@ const Compressor = observer(() => {
   };
 
   const toDownload = (url, name) => {
-    toDownloadFile(url, name);
-    messageApi.success("Download Success!");
-    consumeCredits("rounded");
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || user === 'undefined') {
+      // 跳转到登录页面
+      window.location.href = '/pricing';
+    } else {
+      toDownloadFile(url, name);
+      messageApi.success("Download Success!");
+      consumeCredits("rounded");
+    }
+    
   };
 
   const toZip = async () => {
@@ -63,11 +70,17 @@ const Compressor = observer(() => {
   const toDownloadZip = async () => {
     setLoading(true);
     const result = await toZip();
-    toDownloadFile(URL.createObjectURL(result), "ImgTools.zip");
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || user === 'undefined') {
+      // 跳转到登录页面
+      window.location.href = '/pricing';
+    } else {
+      toDownloadFile(URL.createObjectURL(result), "ImgTools.zip");
+      messageApi.success("Download Success!");
+      consumeCredits("rounded");
+      consumeCredits("rounded");
+    }
     setLoading(false);
-    messageApi.success("Download Success!");
-    consumeCredits("rounded");
-    consumeCredits("rounded");
   };
 
   const addFolder = async () => {

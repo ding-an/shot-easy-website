@@ -93,9 +93,15 @@ export default function App() {
             onSave={(editedImageObject, designState) => {
               const url = editedImageObject.imageBase64;
               const { fullName: fileName } = editedImageObject;
-              toDownloadFile(url, fileName);
-              // @ts-ignore
-              consumeCredits("editor");
+              const user = JSON.parse(localStorage.getItem('user'));
+              if (!user || user === 'undefined') {
+                // 跳转到登录页面
+                window.location.href = '/pricing';
+              } else {
+                toDownloadFile(url, fileName);
+                // @ts-ignore
+                consumeCredits("editor");
+              }
             }}
             theme={{}}
             annotationsCommon={{

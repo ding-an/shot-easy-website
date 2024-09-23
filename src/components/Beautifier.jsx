@@ -192,10 +192,16 @@ export default function Beautifier() {
     mergeCanvas()
       .then((canvas) => {
         const dataUrl = canvas.toDataURL();
-        toDownloadFile(dataUrl, "ImgTools.png");
-        messageApi.success("Download Success!");
-        // @ts-ignore
-        consumeCredits("beautifier");
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || user === 'undefined') {
+          // 跳转到登录页面
+          window.location.href = '/pricing';
+        } else {
+          toDownloadFile(dataUrl, "ImgTools.png");
+          messageApi.success("Download Success!");
+          // @ts-ignore
+          consumeCredits("beautifier");
+        }
       })
       .catch((error) => {
         console.log(error);
