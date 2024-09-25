@@ -1,0 +1,57 @@
+</<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Onerway Payment Test</title>
+    <script src="./onerway.js"></script>
+  </head>
+  <body>
+      <div id='pacypay_checkout'>
+          Test 
+      </div>
+    <script type="text/javascript">
+      const transactionId = '1838938557008707584';
+      const options = {
+          container: 'pacypay_checkout', // 容器id。默认pacypay_checkout
+          locale: 'en', // 收银台语言。根据实际情况填写，详见下方locale参数说明
+          environment: 'sandbox', // 环境类型。支持沙盒、生产环境，详见下方environment参数说明。
+          mode: 'CARD', // 支付方式。支持 收银台、Apple Pay、Google Pay，详见下方mode参数说明
+          config: {
+              subProductType: 'TOKEN',
+              checkoutTheme: 'light',
+              showPayButton: true,
+              buttonSeparation: false,
+              displayBillingInformation: true,
+              variables: {
+                "colorBackground": "black", // 主题背景色
+                "colorPrimary": "red", // 主题色，如输入框高亮、光标颜色
+                "colorText": "white", // 字体颜色
+                "colorDanger": "#FF1493", // 错误提示颜色
+                "borderRadius": "2px", // 输入框角度
+                "fontSizeBase": "16px", // 基础字体大小，会按照该基准进行缩放
+                "fontFamily": "Arial, sans-serif", // 字体样式
+              },
+              // 如果想自定义所有样式则只用配置styles. checkoutTheme,customCssURL,variables都可以不传
+              // 详情请看styles属性说明
+              styles: {
+                ".pacypay-checkout__button--pay": { // 支付按钮样式
+                "background-color": "red",
+              },
+          },
+          onPaymentCompleted: function(res) {
+              // 请求成功完成回调方法
+              console.log('Payment Scuccess');
+              console.log(res);
+          },
+          onError: function(err) {
+              // 请求异常回调方法
+              console.log('Payment Failed');
+              console.log(err);
+          }
+
+      }
+    }
+    const pacypay = new Pacypay(transactionId, options);
+    </script>
+  </body>
+</html>
