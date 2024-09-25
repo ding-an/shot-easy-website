@@ -37,6 +37,7 @@
 		"html-to-image": "^1.11.11",
 		"js-sha256": "^0.10.1",
 		"jszip": "^3.10.1",
+		"jsencrypt": "3.2.1",
 		"konva": "^9.3.0",
 		"lucide-react": "^0.298.0",
 		"markdown-it": "^14.1.0",
