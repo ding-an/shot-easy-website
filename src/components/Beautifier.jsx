@@ -197,10 +197,16 @@ export default function Beautifier() {
           // 跳转到登录页面
           window.location.href = '/pricing';
         } else {
-          toDownloadFile(dataUrl, "ImgTools.png");
-          messageApi.success("Download Success!");
-          // @ts-ignore
-          consumeCredits("beautifier");
+          getCredits().then(res => {
+            if (res > 0) {
+              toDownloadFile(dataUrl, "ImgTools.png");
+              messageApi.success("Download Success!");
+              // @ts-ignore
+              consumeCredits("beautifier");
+            } else {
+              window.location.href = '/pricing'
+            }
+          })
         }
       })
       .catch((error) => {

@@ -38,11 +38,16 @@ const Compressor = observer(() => {
       // 跳转到登录页面
       window.location.href = '/pricing';
     } else {
-      toDownloadFile(url, name);
-      messageApi.success("Download Success!");
-      consumeCredits("rounded");
+      getCredits().then(res => {
+        if (res > 0) {
+          toDownloadFile(url, name);
+          messageApi.success("Download Success!");
+          consumeCredits("rounded");
+        } else {
+          window.location.href = '/pricing'
+        }
+      })
     }
-    
   };
 
   const toZip = async () => {
@@ -75,10 +80,16 @@ const Compressor = observer(() => {
       // 跳转到登录页面
       window.location.href = '/pricing';
     } else {
-      toDownloadFile(URL.createObjectURL(result), "ImgTools.zip");
-      messageApi.success("Download Success!");
-      consumeCredits("rounded");
-      consumeCredits("rounded");
+      getCredits().then(res => {
+        if (res > 0) {
+          toDownloadFile(URL.createObjectURL(result), "ImgTools.zip");
+          messageApi.success("Download Success!");
+          consumeCredits("rounded");
+          consumeCredits("rounded");
+        } else {
+          window.location.href = '/pricing'
+        }
+      })
     }
     setLoading(false);
   };
