@@ -1,11 +1,30 @@
 /** @format */
 
 import { useEffect, useState } from 'react'
+import qs from 'qs'
 import { get, post } from '@utils/request'
 import cookie from '@utils/cookie'
+import VerificationCode from './VerificationCode'
 
 function normalizePubKey(data) {
 	return `-----BEGIN PUBLIC KEY-----\n${data}\n-----END PUBLIC KEY-----`
+}
+
+// 注册
+export async function register({ code, email, pwd }: { code: string; email: string; pwd: string }) {
+	const [mod, json] = await Promise.all([import('@utils/crypto'), get('/users/me/key')])
+	const { setPublicKey, rsaEncrypt, sha256 } = mod
+	setPublicKey(normalizePubKey(json.data))
+	const utm_source = cookie.get('utm_source') || ''
+	const cp_id = cookie.get('cp_id') || ''
+	const { data } = await post(`/register?${qs.stringify({ utm_source, cp_id })}`, {
+		code,
+		email,
+		pwd: rsaEncrypt(sha256(pwd).toString()),
+		utm: `utm_source=${utm_source}&cp_id=${cp_id}`,
+	})
+	cookie.set('access_token', (data as { token: string }).token, 31536000000)
+	return data
 }
 
 async function login(email: string, password: string) {
@@ -24,11 +43,13 @@ async function login(email: string, password: string) {
 	return data
 }
 
-export default function LoginFrom() {
+export default function LoginFrom({ type }) {
 	const [email, setEmail] = useState('')
 	const [pwd, setPwd] = useState('')
 	const [loading, setLoading] = useState(false) //加载
 	const [authTips, setAuthTips] = useState('') // //账号,验证码或密码错误
+	const [code, setCode] = useState('')
+	const [authTipsType, setAuthTipsType] = useState('')
 	const [isSubmit, setIsSubmit] = useState(false)
 
 	// 提交表单
@@ -41,14 +62,22 @@ export default function LoginFrom() {
 		}
 		try {
 			setLoading(true)
-			const data = await login(email, pwd)
-			console.log('%c [ data ]-45', 'font-size:13px; background:pink; color:#bf2c9f;', data)
-			localStorage.setItem('user', JSON.stringify(data))
+			if (type === 'signup') {
+				const data = await register({ code, email, pwd })
+				localStorage.setItem('user', JSON.stringify(data))
+			} else {
+				const data = await login(email, pwd)
+				localStorage.setItem('user', JSON.stringify(data))
+			}
 			// alert.success('login_success')
 			window.location.href = '/'
 		} catch (e) {
 			if (e.code === 145) {
+				setAuthTipsType('')
 				setAuthTips('Email or password is incorrect.')
+			} else if (e.code === 149) {
+				setAuthTipsType('verification')
+				setAuthTips('Verification code error')
 			} else {
 				alert(e.message)
 			}
@@ -83,8 +112,27 @@ export default function LoginFrom() {
 						loading ? ' pointer-events-none' : ''
 					} ${authTips ? 'border-blue-600 outline outline-1 outline-[red]' : 'border-blue-600'}`}
 				/>
-				<p className='mt-2 whitespace-nowrap text-xs text-[red]'>{authTips}</p>
+				{authTipsType !== 'verification' && (
+					<p className='mt-2 whitespace-nowrap text-xs text-[red]'>{authTips}</p>
+				)}
 			</div>
+			{type === 'signup' && (
+				<>
+					<VerificationCode
+						disabled={loading}
+						email={email}
+						authTips={authTips}
+						setAuthTips={setAuthTips}
+						authTipsType={authTipsType}
+						setAuthTipsType={setAuthTipsType}
+						handleChange={e => setCode(e.target.value)}
+					/>
+					{/* 错误提示语 */}
+					{authTipsType === 'verification' && (
+						<p className='mt-2 ml-4 mb-4 whitespace-nowrap text-xs text-error-red'>{authTips}</p>
+					)}
+				</>
+			)}
 			{/* password */}
 			<PasswordInput
 				authTips={authTips}
@@ -92,7 +140,7 @@ export default function LoginFrom() {
 				handleChange={e => setPwd(e.target.value)}
 			/>
 			{/* 错误提示语 */}
-			{authTips && (
+			{authTipsType !== 'verification' && authTips && (
 				<span className='mt-2 whitespace-nowrap text-xs text-[red]'>
 					Email or password is incorrect.
 				</span>
@@ -105,7 +153,7 @@ export default function LoginFrom() {
 						isSubmit ? 'bg-blue-600 hover:opacity-64' : 'cursor-no-drop opacity-64'
 					} ${loading ? 'loading pointer-events-none' : ''}`}
 				>
-					{loading ? 'loading...' : 'login'}
+					{loading ? 'loading...' : type}
 				</button>
 			</div>
 		</form>
