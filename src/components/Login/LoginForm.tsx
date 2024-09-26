@@ -106,7 +106,7 @@ export default function LoginFrom({ type }) {
     const data = await signIn();
     if (data) {
       localStorage.setItem("user", JSON.stringify(data));
-      location.reload();
+      location.href = "/";
     }
   };
 
