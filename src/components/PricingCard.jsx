@@ -10,10 +10,10 @@ const features = [
   ["Individual configuration", "No setup, or hidden fees", "Credits"],
   ["Supports Up to 2 Devices/Users", "No setup, or hidden fees", "Credits"],
   [
-    "Individual configuration",
+    "Supports Up to 10 Devices/Users",
     "No setup, or hidden fees",
     "Credits",
-    "APl Batch Processing",
+    "API Batch Processing",
     "24/7 Dedicated Customer Support",
   ],
 ];
