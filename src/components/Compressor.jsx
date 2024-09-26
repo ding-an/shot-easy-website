@@ -32,21 +32,21 @@ const Compressor = observer(() => {
     return Promise.reject();
   };
 
-  const toDownload = (url, name) => {
+  const toDownload = async (url, name) => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user || user === 'undefined') {
       // 跳转到登录页面
       window.location.href = '/pricing';
     } else {
-      getCredits().then(res => {
-        if (res > 0) {
-          toDownloadFile(url, name);
-          messageApi.success("Download Success!");
-          consumeCredits("rounded");
-        } else {
+      try {
+        await consumeCredits('rounded')
+        toDownloadFile(url, name);
+        messageApi.success("Download Success!");
+      } catch (error) {
+        if (error.code === 302) {
           window.location.href = '/pricing'
         }
-      })
+      }
     }
   };
 
@@ -80,16 +80,15 @@ const Compressor = observer(() => {
       // 跳转到登录页面
       window.location.href = '/pricing';
     } else {
-      getCredits().then(res => {
-        if (res > 0) {
-          toDownloadFile(URL.createObjectURL(result), "ImgTools.zip");
-          messageApi.success("Download Success!");
-          consumeCredits("rounded");
-          consumeCredits("rounded");
-        } else {
+      try {
+        await consumeCredits('rounded')
+        toDownloadFile(URL.createObjectURL(result), "ImgTools.zip");
+        messageApi.success("Download Success!");
+      } catch (error) {
+        if (error.code === 302) {
           window.location.href = '/pricing'
         }
-      })
+      }
     }
     setLoading(false);
   };
