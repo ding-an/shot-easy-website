@@ -1,10 +1,16 @@
 import qs from "qs";
+import { v4 as uuidv4 } from "uuid";
 
 import website from "../configs/website.json";
 import cookie from "./cookie";
 
 const FORM_URLENCODED = "application/x-www-form-urlencoded; charset=UTF-8";
 const LOCALE_KEY = "locale";
+
+if (typeof window !== "undefined") {
+  const deviceId = localStorage.getItem("deviceId") || uuidv4();
+  localStorage.setItem("deviceId", deviceId);
+}
 
 function compose_headers(
   headers: { cookie?: string },
@@ -19,10 +25,8 @@ function compose_headers(
   if (token) {
     baseHeaders.append(website.auth_header, token);
   }
-  const deviceId =
-    cookie.get(website.device_id_key, cookieText) ||
-    "303e63a1-a46c-45f6-b7f0-50c4c0d14485";
 
+  const deviceId = localStorage.getItem("deviceId");
   if (deviceId) {
     baseHeaders.append(website.device_id_key, deviceId);
   }
@@ -30,11 +34,13 @@ function compose_headers(
   const locale = cookie.get(website.locale_key, cookieText || "");
   baseHeaders.append("Accept-Language", locale || "en");
 
-  const cfCountryCode = isBrowser ? window.cf_country_code : cookie.get('cf_country_code', cookieText || '')
-  if (process.env.NODE_ENV === 'development') {
-    baseHeaders.append('X-COUNTRY', 'GB')
+  const cfCountryCode = isBrowser
+    ? window.cf_country_code
+    : cookie.get("cf_country_code", cookieText || "");
+  if (process.env.NODE_ENV === "development") {
+    baseHeaders.append("X-COUNTRY", "GB");
   } else {
-    cfCountryCode && baseHeaders.append('X-COUNTRY', cfCountryCode)
+    cfCountryCode && baseHeaders.append("X-COUNTRY", cfCountryCode);
   }
 
   if (headers) {
