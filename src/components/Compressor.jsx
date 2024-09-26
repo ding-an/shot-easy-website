@@ -32,10 +32,22 @@ const Compressor = observer(() => {
     return Promise.reject();
   };
 
-  const toDownload = (url, name) => {
-    toDownloadFile(url, name);
-    messageApi.success("Download Success!");
-    consumeCredits("rounded");
+  const toDownload = async (url, name) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || user === 'undefined') {
+      // 跳转到登录页面
+      window.location.href = '/pricing';
+    } else {
+      try {
+        await consumeCredits('rounded')
+        toDownloadFile(url, name);
+        messageApi.success("Download Success!");
+      } catch (error) {
+        if (error.code === 302) {
+          window.location.href = '/pricing'
+        }
+      }
+    }
   };
 
   const toZip = async () => {
@@ -63,11 +75,22 @@ const Compressor = observer(() => {
   const toDownloadZip = async () => {
     setLoading(true);
     const result = await toZip();
-    toDownloadFile(URL.createObjectURL(result), "ImgTools.zip");
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || user === 'undefined') {
+      // 跳转到登录页面
+      window.location.href = '/pricing';
+    } else {
+      try {
+        await consumeCredits('rounded')
+        toDownloadFile(URL.createObjectURL(result), "ImgTools.zip");
+        messageApi.success("Download Success!");
+      } catch (error) {
+        if (error.code === 302) {
+          window.location.href = '/pricing'
+        }
+      }
+    }
     setLoading(false);
-    messageApi.success("Download Success!");
-    consumeCredits("rounded");
-    consumeCredits("rounded");
   };
 
   const addFolder = async () => {
