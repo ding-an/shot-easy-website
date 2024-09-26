@@ -89,7 +89,7 @@ export default function App() {
 					<FilerobotImageEditor
 						source={photoUrl}
 						defaultSavedImageName={photoName}
-						onSave={(editedImageObject, designState) => {
+						onSave={async (editedImageObject, designState) => {
 							const url = editedImageObject.imageBase64
 							const { fullName: fileName } = editedImageObject
 							const user = JSON.parse(localStorage.getItem('user'))
@@ -97,15 +97,14 @@ export default function App() {
 								// 跳转到登录页面
 								window.location.href = '/pricing'
 							} else {
-								getCredits().then(res => {
-									if (res > 0) {
-										toDownloadFile(url, fileName)
-										// @ts-ignore
-										consumeCredits('editor')
-									} else {
+								try {
+									await consumeCredits('editor')
+									toDownloadFile(url, fileName)
+								} catch (error) {
+									if (error.code === 302) {
 										window.location.href = '/pricing'
 									}
-								})
+								}
 							}
 						}}
 						theme={{}}

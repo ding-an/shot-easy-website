@@ -111,22 +111,21 @@ export default function Rounded() {
     if (photoData) toDraw(photoData, value, radius);
   };
 
-  const toDownload = () => {
+  const toDownload = async () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user || user === 'undefined') {
       // 跳转到登录页面
       window.location.href = '/pricing';
     } else {
-      getCredits().then(res => {
-        if (res > 0) {
-          toDownloadFile(photoUrl, "ImgTools.png");
-          messageApi.success("Download Success!");
-          // @ts-ignore
-          consumeCredits("rounded");
-        } else {
+      try {
+        await consumeCredits('rounded')
+        toDownloadFile(photoUrl, "ImgTools.png");
+        messageApi.success("Download Success!");
+      } catch (error) {
+        if (error.code === 302) {
           window.location.href = '/pricing'
         }
-      })
+      }
     }
   };
   const toCopy = () => {
