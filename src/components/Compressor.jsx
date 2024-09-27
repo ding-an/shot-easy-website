@@ -272,7 +272,7 @@ const Compressor = observer(() => {
                   icon={<Icon name="Download" />}
                   onClick={toDownloadZip}
                 >
-                  Download All
+                  Download All {!disabled &&<span className='text-[red] text-xs'>(1credit)</span>}
                 </Button>
               </Tooltip>
               <Tooltip placement="top" title="Clear all">

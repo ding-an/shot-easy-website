@@ -8,7 +8,7 @@ export const DownBtn = ({ disabled, loading, toDownload, toCopy }) => {
     return (
         <div className="ant-space-compact">
             <Tooltip placement="top" title={<span>Download {key} + S</span>}>
-                <Button type="primary" className="rounded-se-none rounded-ee-none me-[-1px] hover:z-[1] border-r-white/30 bg-black" disabled={disabled} loading={loading} icon={<Icon name="Download" />} onClick={toDownload}>Download</Button>
+                <Button type="primary" className="rounded-se-none rounded-ee-none me-[-1px] hover:z-[1] border-r-white/30 bg-black" disabled={disabled} loading={loading} icon={<Icon name="Download" />} onClick={toDownload}>Download {!disabled && <span className='text-[red] text-xs'>(1credit)</span>}</Button>
             </Tooltip>
             <Tooltip placement="top" title={<span>Copy {key} + C</span>}>
                 <Button type="primary" className="rounded-ss-none rounded-es-none border-l-white/30 bg-black" disabled={disabled} loading={loading} icon={<Icon name="Copy" />} onClick={toCopy}></Button>
