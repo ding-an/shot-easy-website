@@ -89,6 +89,12 @@ export default function App() {
 					<FilerobotImageEditor
 						source={photoUrl}
 						defaultSavedImageName={photoName}
+						onBeforeSave={() => {
+							setTimeout(() => {
+								const buttons = document.querySelectorAll('button')
+								buttons[buttons.length - 1].innerHTML = 'save <span style="color: #fc4041; font-size: 12px;">(1credit)</span>'
+							})
+						}}
 						onSave={async (editedImageObject, designState) => {
 							const url = editedImageObject.imageBase64
 							const { fullName: fileName } = editedImageObject
