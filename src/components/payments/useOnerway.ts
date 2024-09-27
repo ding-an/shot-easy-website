@@ -4,6 +4,7 @@ import { useInterval } from "ahooks";
 
 import alert from "@components/Toast";
 import { get, post } from "@utils/request";
+import { getDecrypt } from "@utils/crypto";
 
 const ORDER_STATUS = {
   PENDING: 2,
@@ -20,6 +21,16 @@ const useOnerway = () => {
   const [polling, setPolling] = useState(false);
   const order_id = new URLSearchParams(window.location.search)?.get("order_id");
   let clean;
+
+  const getParams = (key: string) => {
+    const storedParamsString = sessionStorage.getItem("myParams");
+    const urlSearchParams = new URLSearchParams(storedParamsString);
+    if (key === "returnUrl") {
+      return window.atob(getDecrypt(urlSearchParams.get(key), "_onerway_"));
+    }
+
+    return urlSearchParams.get(key);
+  };
 
   const getOrderStatus = async () => {
     try {
@@ -78,57 +89,7 @@ const useOnerway = () => {
           province,
         },
       });
-      import("@lib/onerway").then(() => {
-        setCreating(false);
-        // @ts-ignore
-        const pacypay = new window.Pacypay(res.data.spOrderId, {
-          locale: "en", // en zh-cn ar de es fi fr it ja ko nl no pl pt ru sv th zh-tw
-          environment: "sandbox", // sandbox、production
-          mode: "CARD",
-          config: {
-            subProductType: "TOKEN", // DIRECT - 直接支付/订阅支付/预授权支付，TOKEN - 绑卡支付
-            checkoutTheme: "light", // light、dark
-            customCssURL: "", // 自定义样式链接地址，配置该值后，checkoutTheme 则无效
-            styles: {
-              ".pacypay-checkout__button--pay": {
-                "background-color": "rgb(37, 99, 235)",
-              },
-            },
-          },
-          onPaymentCompleted: function (res) {
-            console.log(res);
-            //成功支付后回调方法
-            const txtInfo = res.data; // 返回交易结果详情
-            const respCode = res.respCode; // 响应码
-            const respMsg = res.respMsg; // 响应信息
-            if (respCode === "20000") {
-              // respCode 为 20000 表示交易正常
-              switch (
-                txtInfo.status // 交易状态判断
-              ) {
-                case "S": // status 为 'S' 表示成功
-                  // 支付最终状态以异步通知结果为准
-                  alert.success("Payment successful");
-                  setTimeout(() => {
-                    location.href = "/pricing";
-                  }, 3000);
-                  break;
-                case "R": // status 为 'R' 表示需要3ds验证
-                  // 当交易状态为 R 时，商户需要重定向到该URL完成部分交易，包括3ds验证
-                  window.location.href = txtInfo.redirectUrl;
-                  break;
-              }
-            } else {
-              // 交易失败
-              alert.error(respMsg || "Payment failed");
-            }
-          },
-          onError: function (err) {
-            //支付异常回调方法
-            console.log(err);
-          },
-        });
-      });
+      return res.data.spOrderId;
     } catch (err) {
       setCreating(false);
       alert.error(err.message);
@@ -145,6 +106,62 @@ const useOnerway = () => {
     }
   };
 
+  const checkout = async (spOrderId) => {
+    import("@lib/onerway").then(() => {
+      setCreating(false);
+      // @ts-ignore
+      const pacypay = new window.Pacypay(spOrderId, {
+        locale: "en", // en zh-cn ar de es fi fr it ja ko nl no pl pt ru sv th zh-tw
+        environment: "sandbox", // sandbox、production
+        mode: "CARD",
+        config: {
+          subProductType: "TOKEN", // DIRECT - 直接支付/订阅支付/预授权支付，TOKEN - 绑卡支付
+          checkoutTheme: "light", // light、dark
+          customCssURL: "", // 自定义样式链接地址，配置该值后，checkoutTheme 则无效
+          styles: {
+            ".pacypay-checkout__button--pay": {
+              "background-color": "rgb(37, 99, 235)",
+            },
+          },
+        },
+        onPaymentCompleted: function (res) {
+          console.log(res);
+          //成功支付后回调方法
+          const txtInfo = res.data; // 返回交易结果详情
+          const respCode = res.respCode; // 响应码
+          const respMsg = res.respMsg; // 响应信息
+          if (respCode === "20000") {
+            // respCode 为 20000 表示交易正常
+            switch (
+              txtInfo.status // 交易状态判断
+            ) {
+              case "S": // status 为 'S' 表示成功
+                // 支付最终状态以异步通知结果为准
+                alert.success("Payment successful");
+                setTimeout(() => {
+                  // TODO B 站状态轮询
+                  const returnUrl = getParams("returnUrl") || "/pricing";
+                  location.href = `${returnUrl}?transaction_id=${txtInfo.transactionId}&order_id=${spOrderId}`;
+                }, 3000);
+                break;
+              case "R": // status 为 'R' 表示需要3ds验证
+                // 当交易状态为 R 时，商户需要重定向到该URL完成部分交易，包括3ds验证
+                window.location.href = txtInfo.redirectUrl;
+                break;
+            }
+          } else {
+            // 交易失败
+            alert.error(respMsg || "Payment failed");
+          }
+        },
+        onError: function (err) {
+          //支付异常回调方法
+          console.log(err);
+        },
+      });
+    });
+  };
+
   clean = useInterval(
     getOrderStatus,
     // 没有明确结果就定刷订单状态
@@ -155,6 +172,15 @@ const useOnerway = () => {
   );
 
   useEffect(() => {
+    const spOrderId = getParams("spOrderId");
+    /**
+     * A 站过来
+     */
+    if (spOrderId) {
+      checkout(spOrderId);
+      return;
+    }
+
     if (!localStorage.getItem("fb_email") || !localStorage.getItem("user")) {
       localStorage.removeItem("user");
       location.href = "/login";
@@ -163,13 +189,12 @@ const useOnerway = () => {
 
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
-
     if (!id) {
       location.href = "/pricing";
       return;
     }
 
-    createOrder(id);
+    createOrder(id).then(checkout);
   }, []);
 
   useEffect(() => {

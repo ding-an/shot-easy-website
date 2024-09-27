@@ -6,22 +6,23 @@
  * @format
  */
 
-import JSEncrypt from 'jsencrypt'
-import cjsha256 from 'crypto-js/sha256'
+import JSEncrypt from "jsencrypt";
+import cjsha256 from "crypto-js/sha256";
+import CryptoJS from "crypto-js";
 
-export const sha256 = cjsha256
+export const sha256 = cjsha256;
 
-let encryptor
+let encryptor;
 
 /**
  * RSA 设置公钥
  * @param val 公钥
  */
 export function setPublicKey(val) {
-	if (!encryptor) {
-		encryptor = new JSEncrypt()
-	}
-	encryptor.setPublicKey(val)
+  if (!encryptor) {
+    encryptor = new JSEncrypt();
+  }
+  encryptor.setPublicKey(val);
 }
 
 /**
@@ -30,8 +31,12 @@ export function setPublicKey(val) {
  * @returns {PromiseLike<ArrayBuffer>} 返回加密字符串
  */
 export function rsaEncrypt(data) {
-	if (!encryptor) {
-		encryptor = new JSEncrypt()
-	}
-	return encryptor.encrypt(data)
+  if (!encryptor) {
+    encryptor = new JSEncrypt();
+  }
+  return encryptor.encrypt(data);
+}
+
+export function getDecrypt(data, key) {
+  return CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Utf8);
 }

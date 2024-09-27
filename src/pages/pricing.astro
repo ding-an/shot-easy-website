@@ -68,7 +68,11 @@ import ABPricingPay from '@components/ABPricingPay'
           if (channel) {
             document.getElementById('pricingWrapper').style.display = 'none'
             sessionStorage.setItem('myParams', urlSearchParams.toString());
-            location.replace(removeParameter(location.href, ['token', 'channel', 'returnUrl', 'clientSecret', 'spOrderId', 'payUrl', 'transaction_id', 'order_id']))
+            if (channel === '18') {
+              location.href = '/pricing/onerway'
+            } else {
+              location.replace(removeParameter(location.href, ['token', 'channel', 'returnUrl', 'clientSecret', 'spOrderId', 'payUrl', 'transaction_id', 'order_id']))
+            }
           } else {
             if (!sessionStorage.getItem('myParams')) {
               document.getElementById('pricingWrapper').style.display = 'block'
