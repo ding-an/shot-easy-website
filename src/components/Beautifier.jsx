@@ -190,23 +190,22 @@ export default function Beautifier() {
   const toDownload = () => {
     setLoading(true);
     mergeCanvas()
-      .then((canvas) => {
+      .then(async (canvas) => {
         const dataUrl = canvas.toDataURL();
         const user = JSON.parse(localStorage.getItem('user'));
         if (!user || user === 'undefined') {
           // 跳转到登录页面
           window.location.href = '/pricing';
         } else {
-          getCredits().then(res => {
-            if (res > 0) {
-              toDownloadFile(dataUrl, "ImgTools.png");
-              messageApi.success("Download Success!");
-              // @ts-ignore
-              consumeCredits("beautifier");
-            } else {
+          try {
+            await consumeCredits('beautifier')
+            toDownloadFile(dataUrl, "ImgTools.png");
+            messageApi.success("Download Success!");
+          } catch (error) {
+            if (error.code === 302) {
               window.location.href = '/pricing'
             }
-          })
+          }
         }
       })
       .catch((error) => {
