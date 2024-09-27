@@ -1,5 +1,3 @@
-/** @format */
-
 import { useEffect, useState } from "react";
 
 import { useInterval } from "ahooks";
@@ -15,7 +13,7 @@ const ORDER_STATUS = {
 
 const useOnerway = () => {
   // 输入邮箱的弹窗是否可见
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [email, setEmail] = useState("");
   // 订单创建中
   const [creating, setCreating] = useState(false);
@@ -90,9 +88,58 @@ const useOnerway = () => {
           province: window.cf_region_code || "CA",
         },
       });
-      const data = res.data;
-      setCreating(false);
-      location.href = data.payUrl;
+      import("@lib/onerway").then(() => {
+        setCreating(false);
+        setVisible(false);
+        // @ts-ignore
+        const pacypay = new window.Pacypay(res.data.spOrderId, {
+          locale: "en", // en zh-cn ar de es fi fr it ja ko nl no pl pt ru sv th zh-tw
+          environment: "sandbox", // sandbox、production
+          mode: "CARD",
+          config: {
+            subProductType: "TOKEN", // DIRECT - 直接支付/订阅支付/预授权支付，TOKEN - 绑卡支付
+            checkoutTheme: "light", // light、dark
+            customCssURL: "", // 自定义样式链接地址，配置该值后，checkoutTheme 则无效
+            styles: {
+              ".pacypay-checkout__button--pay": {
+                "background-color": "rgb(37, 99, 235)",
+              },
+            },
+          },
+          onPaymentCompleted: function (res) {
+            console.log(res);
+            //成功支付后回调方法
+            const txtInfo = res.data; // 返回交易结果详情
+            const respCode = res.respCode; // 响应码
+            const respMsg = res.respMsg; // 响应信息
+            if (respCode === "20000") {
+              // respCode 为 20000 表示交易正常
+              switch (
+                txtInfo.status // 交易状态判断
+              ) {
+                case "S": // status 为 'S' 表示成功
+                  // 支付最终状态以异步通知结果为准
+                  alert.success("Payment successful");
+                  setTimeout(() => {
+                    location.href = "/pricing";
+                  }, 3000);
+                  break;
+                case "R": // status 为 'R' 表示需要3ds验证
+                  // 当交易状态为 R 时，商户需要重定向到该URL完成部分交易，包括3ds验证
+                  window.location.href = txtInfo.redirectUrl;
+                  break;
+              }
+            } else {
+              // 交易失败
+              alert.error(respMsg || "Payment failed");
+            }
+          },
+          onError: function (err) {
+            //支付异常回调方法
+            console.log(err);
+          },
+        });
+      });
     } catch (err) {
       setCreating(false);
       alert.error(err.message);

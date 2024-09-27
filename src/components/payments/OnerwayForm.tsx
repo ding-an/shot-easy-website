@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useOnerway from "./useOnerway";
 
 export default function OnerwayForm() {
-  const { createOrder, email, setEmail, setProductId } = useOnerway();
+  const { createOrder, email, setEmail, setProductId, visible } = useOnerway();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -13,8 +13,12 @@ export default function OnerwayForm() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-      <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto py-4 w-full lg:w-[480px]">
+      <div
+        className={`w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 ${
+          visible ? "block" : "hidden"
+        }`}
+      >
         <div className="p-2 space-y-4 md:space-y-6 sm:p-8">
           <input
             type="email"
@@ -36,6 +40,7 @@ export default function OnerwayForm() {
           </button>
         </div>
       </div>
+      <div id="pacypay_checkout" className="mx-4 my-4 w-full"></div>
     </div>
   );
 }
