@@ -54,6 +54,7 @@ async function login(email: string, password: string) {
     email,
     pwd: rsaEncrypt(sha256(password) + ticketJson.data),
   });
+  localStorage.setItem("fb_email", email);
   cookie.set("access_token", (data as { token: string }).token, 31536000000);
   return data;
 }
