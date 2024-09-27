@@ -92,7 +92,7 @@ export default function App() {
 						onBeforeSave={() => {
 							setTimeout(() => {
 								const buttons = document.querySelectorAll('button')
-								buttons[buttons.length - 1].innerHTML = 'save <span style="color: white; font-size: 12px;">(1credit)</span>'
+								buttons[buttons.length - 1].innerHTML = 'save <span style="color: #fc4041; font-size: 12px;">(1credit)</span>'
 							})
 						}}
 						onSave={async (editedImageObject, designState) => {
