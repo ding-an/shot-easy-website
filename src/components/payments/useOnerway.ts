@@ -12,16 +12,12 @@ const ORDER_STATUS = {
 };
 
 const useOnerway = () => {
-  // 输入邮箱的弹窗是否可见
-  const [visible, setVisible] = useState(true);
-  const [email, setEmail] = useState("");
   // 订单创建中
   const [creating, setCreating] = useState(false);
   // 订单详情
   const [orderInfo, setOrderInfo] = useState(null);
   // 轮询中
   const [polling, setPolling] = useState(false);
-  const [productId, setProductId] = useState("");
   const order_id = new URLSearchParams(window.location.search)?.get("order_id");
   let clean;
 
@@ -62,7 +58,7 @@ const useOnerway = () => {
   };
 
   // 创建订单
-  const createOrder = async () => {
+  const createOrder = async (productId: string) => {
     try {
       if (!productId) {
         alert.error("Please select a product");
@@ -83,14 +79,13 @@ const useOnerway = () => {
           javaEnabled: navigator.javaEnabled(),
           timeZoneOffset: new Date().getTimezoneOffset(),
           contentLength: 256,
-          email: email,
+          email: localStorage.getItem("fb_email"),
           // @ts-ignore
           province: window.cf_region_code || "CA",
         },
       });
       import("@lib/onerway").then(() => {
         setCreating(false);
-        setVisible(false);
         // @ts-ignore
         const pacypay = new window.Pacypay(res.data.spOrderId, {
           locale: "en", // en zh-cn ar de es fi fr it ja ko nl no pl pt ru sv th zh-tw
@@ -175,11 +170,6 @@ const useOnerway = () => {
   }, [order_id]);
 
   return {
-    visible,
-    setVisible,
-    setProductId,
-    email,
-    setEmail,
     creating,
     createOrder,
     getBillingInfo,
