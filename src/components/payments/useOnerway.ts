@@ -21,15 +21,6 @@ const useOnerway = () => {
   const order_id = new URLSearchParams(window.location.search)?.get("order_id");
   let clean;
 
-  const getBillingInfo = async () => {
-    try {
-      const res = await get("/users/me/channels/18/billing-address");
-      return res.data;
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-
   const getOrderStatus = async () => {
     try {
       const { id } = orderInfo;
@@ -59,19 +50,23 @@ const useOnerway = () => {
 
   // 创建订单
   const createOrder = async (productId: string) => {
+    // 如果从 A 站来则从 url 解密
+    const email = localStorage.getItem("fb_email");
+    // @ts-ignore
+    const province = window.cf_region_code || "CA";
+    // @ts-ignore
+    const region = window.cf_country_code || "US";
+    const returnUrl = `${window.location.origin}/pricing`;
+
     try {
-      if (!productId) {
-        alert.error("Please select a product");
-        return;
-      }
       setCreating(true);
       const res = await post("/v1/users/me/orders", {
         productId: productId,
         channel: 18,
         // @ts-ignore
-        region: window.cf_country_code || "US",
+        region,
         quantity: 1,
-        returnUrl: `${window.location.origin}/pricing`,
+        returnUrl,
         onerwayExtra: {
           colorDepth: window.screen.colorDepth,
           screenWidth: window.screen.width,
@@ -79,9 +74,8 @@ const useOnerway = () => {
           javaEnabled: navigator.javaEnabled(),
           timeZoneOffset: new Date().getTimezoneOffset(),
           contentLength: 256,
-          email: localStorage.getItem("fb_email"),
-          // @ts-ignore
-          province: window.cf_region_code || "CA",
+          email,
+          province,
         },
       });
       import("@lib/onerway").then(() => {
@@ -161,6 +155,24 @@ const useOnerway = () => {
   );
 
   useEffect(() => {
+    if (!localStorage.getItem("fb_email") || !localStorage.getItem("user")) {
+      localStorage.removeItem("user");
+      location.href = "/login";
+      return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (!id) {
+      location.href = "/pricing";
+      return;
+    }
+
+    createOrder(id);
+  }, []);
+
+  useEffect(() => {
     if (order_id) {
       setOrderInfo({
         id: order_id,
@@ -172,7 +184,6 @@ const useOnerway = () => {
   return {
     creating,
     createOrder,
-    getBillingInfo,
     polling,
   };
 };
