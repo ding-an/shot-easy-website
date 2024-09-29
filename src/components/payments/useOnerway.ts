@@ -101,10 +101,10 @@ const useOnerway = () => {
     }
   };
 
-  const checkout = async (res) => {
+  const checkout = async (data) => {
     try {
       const mod = await import("@lib/onerway");
-      const { spOrderId, id } = res;
+      const { spOrderId, id } = data;
       setCreating(false);
       // @ts-ignore
       new mod.default(spOrderId, {
