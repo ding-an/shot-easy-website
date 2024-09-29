@@ -21,9 +21,14 @@ const useOnerway = () => {
   let clean;
 
   const getParams = (key: string) => {
-    const storedParamsString = sessionStorage.getItem("myParams");
-    const urlSearchParams = new URLSearchParams(storedParamsString);
+    if (sessionStorage.getItem("myParams")) {
+      const urlSearchParams = new URLSearchParams(
+        sessionStorage.getItem("myParams")
+      );
+      return urlSearchParams.get(key);
+    }
 
+    const urlSearchParams = new URLSearchParams(window.location.search);
     return urlSearchParams.get(key);
   };
 
@@ -183,6 +188,8 @@ const useOnerway = () => {
      * A 站过来
      */
     if (spOrderId) {
+      sessionStorage.setItem("myParams", location.search.slice(1));
+      history.replaceState(null, "", location.pathname);
       checkout({
         spOrderId,
         id: orderId,
