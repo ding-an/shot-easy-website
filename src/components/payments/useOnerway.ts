@@ -7,6 +7,7 @@ import { get, post } from "@utils/request";
 import { getOrderParamsFromA, getParams, goToA } from "./ab-pay";
 
 const ORDER_STATUS = {
+  NOT_FOUND: 0,
   PENDING: 2,
   PAID: 3,
   FAILED: 8,
@@ -34,7 +35,10 @@ const useOnerway = () => {
         clean();
         location.href = "/pricing";
         // 订单失败了
-      } else if (status === ORDER_STATUS.FAILED) {
+      } else if (
+        status === ORDER_STATUS.FAILED ||
+        status === ORDER_STATUS.NOT_FOUND
+      ) {
         setPolling(false);
         alert.error(statusDes, ToastPosition.TOP_CENTER, 3000);
         clean();
@@ -173,6 +177,7 @@ const useOnerway = () => {
     const orderParams = getOrderParamsFromA();
     if (orderParams) {
       sessionStorage.setItem("myParams", location.search.slice(1));
+      history.replaceState(null, "", location.pathname);
       checkout(orderParams);
       return;
     }

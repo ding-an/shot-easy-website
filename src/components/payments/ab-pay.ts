@@ -20,14 +20,10 @@ export const getParams = (key: string) => {
 
 export const getOrderParamsFromA = () => {
   const spOrderId = getParams("spOrderId");
-  const orderId = getParams("id");
+  const id = getParams("id");
 
-  if (spOrderId) {
-    if (location.search.includes("spOrderId")) {
-      history.replaceState(null, "", location.pathname);
-    }
-
-    return { spOrderId, id: orderId };
+  if (spOrderId && id) {
+    return { spOrderId, id };
   }
 };
 
