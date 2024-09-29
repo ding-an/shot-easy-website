@@ -44,6 +44,8 @@ import ABPricingPay from '@components/ABPricingPay'
         <ABPricingPay client:only='react' />
         <script>
           import cookie from '@utils/cookie'
+          import { goToA } from '@components/payments/ab-pay';
+
           function removeParameter(url, paramName) {
             const urlObj = new URL(url);
             const params = new URLSearchParams(urlObj.search);
@@ -69,7 +71,7 @@ import ABPricingPay from '@components/ABPricingPay'
             document.getElementById('pricingWrapper').style.display = 'none'
             sessionStorage.setItem('myParams', urlSearchParams.toString());
             if (channel === '18') {
-              location.href = '/pricing/onerway'
+              goToA()
             } else {
               location.replace(removeParameter(location.href, ['token', 'channel', 'returnUrl', 'clientSecret', 'spOrderId', 'payUrl', 'transaction_id', 'order_id']))
             }

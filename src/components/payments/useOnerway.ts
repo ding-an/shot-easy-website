@@ -4,7 +4,7 @@ import { useInterval } from "ahooks";
 
 import alert, { ToastPosition } from "@components/Toast";
 import { get, post } from "@utils/request";
-import { getDecrypt } from "@utils/crypto";
+import { getOrderParamsFromA, getParams, goToA } from "./ab-pay";
 
 const ORDER_STATUS = {
   PENDING: 2,
@@ -20,24 +20,6 @@ const useOnerway = () => {
   // 轮询中
   const [polling, setPolling] = useState(false);
   let clean;
-
-  const getParams = (key: string) => {
-    let urlSearchParams: URLSearchParams;
-    if (location.search.includes("spOrderId")) {
-      urlSearchParams = new URLSearchParams(location.search);
-    } else if (sessionStorage.getItem("myParams")) {
-      urlSearchParams = new URLSearchParams(sessionStorage.getItem("myParams"));
-    } else {
-      return "";
-    }
-
-    const value = urlSearchParams.get(key);
-    if (key === "returnUrl") {
-      return getDecrypt(window.atob(value), "_onerway_");
-    }
-
-    return value;
-  };
 
   const getOrderStatus = async () => {
     try {
@@ -149,10 +131,7 @@ const useOnerway = () => {
 
                 // A 站
                 if (getParams("spOrderId")) {
-                  const returnUrl = getParams("returnUrl");
-                  console.log({ returnUrl });
-                  sessionStorage.removeItem("myParams");
-                  location.href = `${returnUrl}?transaction_id=${spOrderId}&order_id=${id}`;
+                  goToA();
                 } else {
                   setOrderInfo({
                     id: id,
@@ -191,18 +170,10 @@ const useOnerway = () => {
   );
 
   useEffect(() => {
-    const spOrderId = getParams("spOrderId");
-    const orderId = getParams("id");
-    /**
-     * A 站过来
-     */
-    if (spOrderId) {
+    const orderParams = getOrderParamsFromA();
+    if (orderParams) {
       sessionStorage.setItem("myParams", location.search.slice(1));
-      history.replaceState(null, "", location.pathname);
-      checkout({
-        spOrderId,
-        id: orderId,
-      });
+      checkout(orderParams);
       return;
     }
 
