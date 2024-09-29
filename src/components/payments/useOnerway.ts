@@ -141,7 +141,7 @@ const useOnerway = () => {
                   location.href = `${returnUrl}?transaction_id=${txtInfo.transactionId}&order_id=${spOrderId}`;
                 } else {
                   setOrderInfo({
-                    id: spOrderId,
+                    id: txtInfo.transactionId,
                     status: ORDER_STATUS.PENDING,
                   });
                 }
