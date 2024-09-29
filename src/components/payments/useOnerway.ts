@@ -33,7 +33,7 @@ const useOnerway = () => {
 
     const value = urlSearchParams.get(key);
     if (key === "returnUrl") {
-      return getDecrypt(value, "_onerway_");
+      return getDecrypt(window.atob(value), "_onerway_");
     }
 
     return value;
