@@ -4,6 +4,7 @@ import { useInterval } from "ahooks";
 
 import alert, { ToastPosition } from "@components/Toast";
 import { get, post } from "@utils/request";
+import { getDecrypt } from "@utils/crypto";
 
 const ORDER_STATUS = {
   PENDING: 2,
@@ -21,15 +22,19 @@ const useOnerway = () => {
   let clean;
 
   const getParams = (key: string) => {
+    let urlSearchParams: URLSearchParams;
     if (sessionStorage.getItem("myParams")) {
-      const urlSearchParams = new URLSearchParams(
-        sessionStorage.getItem("myParams")
-      );
-      return urlSearchParams.get(key);
+      urlSearchParams = new URLSearchParams(sessionStorage.getItem("myParams"));
+    } else {
+      urlSearchParams = new URLSearchParams(window.location.search);
     }
 
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    return urlSearchParams.get(key);
+    const value = urlSearchParams.get(key);
+    if (key === "returnUrl") {
+      return getDecrypt(value, "_onerway_");
+    }
+
+    return value;
   };
 
   const getOrderStatus = async () => {
