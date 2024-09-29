@@ -85,7 +85,7 @@ const useOnerway = () => {
           province,
         },
       });
-      return res.data.spOrderId;
+      return res.data;
     } catch (err) {
       setCreating(false);
       alert.error(err.message);
@@ -102,9 +102,10 @@ const useOnerway = () => {
     }
   };
 
-  const checkout = async (spOrderId) => {
+  const checkout = async (res) => {
     try {
       const mod = await import("@lib/onerway");
+      const { spOrderId, id } = res;
       setCreating(false);
       // @ts-ignore
       new mod.default(spOrderId, {
@@ -138,10 +139,10 @@ const useOnerway = () => {
                 // A 站
                 if (getParams("spOrderId")) {
                   const returnUrl = getParams("returnUrl");
-                  location.href = `${returnUrl}?transaction_id=${txtInfo.transactionId}&order_id=${spOrderId}`;
+                  location.href = `${returnUrl}?transaction_id=${spOrderId}&order_id=${id}`;
                 } else {
                   setOrderInfo({
-                    id: txtInfo.transactionId,
+                    id: id,
                     status: ORDER_STATUS.PENDING,
                   });
                 }
@@ -178,6 +179,8 @@ const useOnerway = () => {
 
   useEffect(() => {
     const spOrderId = getParams("spOrderId");
+    // 订单轮询 id for A，产品 id for B
+    const id = getParams("id");
     /**
      * A 站过来
      */
@@ -192,8 +195,6 @@ const useOnerway = () => {
       return;
     }
 
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
     if (!id) {
       location.href = "/pricing";
       return;
