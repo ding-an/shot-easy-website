@@ -102,22 +102,12 @@ const useOnerway = () => {
     }
   };
 
-  const loadScript = (src: string): Promise<void> => {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.onload = () => resolve();
-      script.onerror = () => reject(new Error(`Load script failed: ${src}`));
-      document.body.appendChild(script);
-    });
-  };
-
   const checkout = async (spOrderId) => {
     try {
-      await loadScript("/js/onerway.js");
+      const mod = await import("@lib/onerway");
       setCreating(false);
       // @ts-ignore
-      const pacypay = new window.Pacypay(spOrderId, {
+      new mod.default(spOrderId, {
         locale: "en", // en zh-cn ar de es fi fr it ja ko nl no pl pt ru sv th zh-tw
         environment: "sandbox", // sandbox、production
         mode: "CARD",
@@ -173,7 +163,7 @@ const useOnerway = () => {
         },
       });
     } catch (error) {
-      console.error("加载 onerway.js 失败:", error);
+      console.error("Load pacypay failed", error);
     }
   };
 
