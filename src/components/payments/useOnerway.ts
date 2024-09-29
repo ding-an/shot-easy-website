@@ -23,10 +23,12 @@ const useOnerway = () => {
 
   const getParams = (key: string) => {
     let urlSearchParams: URLSearchParams;
-    if (sessionStorage.getItem("myParams")) {
+    if (location.search.includes("spOrderId")) {
+      urlSearchParams = new URLSearchParams(location.search);
+    } else if (sessionStorage.getItem("myParams")) {
       urlSearchParams = new URLSearchParams(sessionStorage.getItem("myParams"));
     } else {
-      urlSearchParams = new URLSearchParams(window.location.search);
+      return "";
     }
 
     const value = urlSearchParams.get(key);
@@ -148,6 +150,8 @@ const useOnerway = () => {
                 // A 站
                 if (getParams("spOrderId")) {
                   const returnUrl = getParams("returnUrl");
+                  console.log({ returnUrl });
+                  sessionStorage.removeItem("myParams");
                   location.href = `${returnUrl}?transaction_id=${spOrderId}&order_id=${id}`;
                 } else {
                   setOrderInfo({
