@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 
 import { useInterval } from "ahooks";
 
-import alert from "@components/Toast";
+import alert, { ToastPosition } from "@components/Toast";
 import { get, post } from "@utils/request";
-import { getDecrypt } from "@utils/crypto";
 
 const ORDER_STATUS = {
   PENDING: 2,
@@ -37,13 +36,13 @@ const useOnerway = () => {
       const { status, statusDes } = data;
 
       if (status === ORDER_STATUS.PAID) {
-        alert.success("payment successful");
+        alert.success("payment successful", ToastPosition.TOP_CENTER, 3000);
         clean();
         location.href = "/pricing";
         // 订单失败了
       } else if (status === ORDER_STATUS.FAILED) {
         setPolling(false);
-        alert.error(statusDes);
+        alert.error(statusDes, ToastPosition.TOP_CENTER, 3000);
         clean();
       }
 

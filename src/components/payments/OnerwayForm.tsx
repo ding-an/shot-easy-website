@@ -8,7 +8,9 @@ export default function OnerwayForm() {
       {polling ? (
         <div className="text-center">Updating order status...</div>
       ) : (
-        <div id="pacypay_checkout" className="mx-4 my-4 w-full"></div>
+        <div id="pacypay_checkout" className="mx-4 my-4 w-full">
+          Loading ...
+        </div>
       )}
     </div>
   );
