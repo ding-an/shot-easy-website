@@ -179,13 +179,15 @@ const useOnerway = () => {
 
   useEffect(() => {
     const spOrderId = getParams("spOrderId");
-    // 订单轮询 id for A，产品 id for B
-    const id = getParams("id");
+    const orderId = getParams("id");
     /**
      * A 站过来
      */
     if (spOrderId) {
-      checkout(spOrderId);
+      checkout({
+        spOrderId,
+        id: orderId,
+      });
       return;
     }
 
@@ -195,6 +197,8 @@ const useOnerway = () => {
       return;
     }
 
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
     if (!id) {
       location.href = "/pricing";
       return;
