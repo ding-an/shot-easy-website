@@ -107,7 +107,10 @@ const useOnerway = () => {
       // @ts-ignore
       new mod.default(spOrderId, {
         locale: "en", // en zh-cn ar de es fi fr it ja ko nl no pl pt ru sv th zh-tw
-        environment: "sandbox", // sandbox、production
+        environment:
+          import.meta.env.PUBLIC_FIREBASE_ENV === "staging"
+            ? "sandbox"
+            : "production", // sandbox、production
         mode: "CARD",
         config: {
           subProductType: "TOKEN", // DIRECT - 直接支付/订阅支付/预授权支付，TOKEN - 绑卡支付
