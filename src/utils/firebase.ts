@@ -58,6 +58,7 @@ export function initApp() {
 // 提交 Firebase 认证信息到DS系统进行登录
 export async function signInWithAuth(auth: Auth) {
   const firebaseIdToken = await auth.currentUser?.getIdToken();
+  localStorage.setItem("fb_email", auth.currentUser.email);
   const utm_source = cookie.get("utm_source") || "";
   const cp_id = cookie.get("cp_id") || "";
   const ck_id = cookie.get("ck_id") || "";

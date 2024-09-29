@@ -118,25 +118,26 @@ const gtagId = import.meta.env.NEXT_PUBLIC_GTAG_ID
       (function () {
         const user = localStorage.getItem("user");
         const a = document.querySelector("nav a:last-child");
-
-        if (user && user !== "undefined") {
-          // console.log(user);
-          a.textContent = "Logout";
-          a.addEventListener("click", (e) => {
-            e.preventDefault();
-            localStorage.removeItem("user");
-            location.reload();
-          });
-        } else {
-          a.textContent = "Login";
-          a.addEventListener("click", async (e) => {
-            e.preventDefault();
-            const data = await signIn();
-            if (data) {
-              localStorage.setItem("user", JSON.stringify(data));
+        if (a) {
+          if (user && user !== "undefined") {
+            // console.log(user);
+            a.textContent = "Logout";
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              localStorage.removeItem("user");
               location.reload();
-            }
-          });
+            });
+          } else {
+            a.textContent = "Login";
+            // a.addEventListener("click", async (e) => {
+            //   e.preventDefault();
+            //   const data = await signIn();
+            //   if (data) {
+            //     localStorage.setItem("user", JSON.stringify(data));
+            //     location.reload();
+            //   }
+            // });
+          }
         }
 
         // @ts-ignore

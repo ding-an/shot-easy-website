@@ -1,0 +1,18 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+
+import OnerwayForm from '@components/payments/OnerwayForm.tsx';
+---
+
+<Layout title='Pay by Onerway'>
+    <main class="relative overflow-hidden min-h-screen flex flex-col">
+        <!-- <Header /> -->
+		<section class='bg-gray-50 dark:bg-gray-900 mx-auto' style='width: auto;'>
+			<OnerwayForm client:only='react'/>
+		</section>
+        <!-- <Footer /> -->
+    </main>
+</Layout>
+
