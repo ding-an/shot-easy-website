@@ -19,15 +19,11 @@ const useOnerway = () => {
   const [orderInfo, setOrderInfo] = useState(null);
   // 轮询中
   const [polling, setPolling] = useState(false);
-  const order_id = new URLSearchParams(window.location.search)?.get("order_id");
   let clean;
 
   const getParams = (key: string) => {
     const storedParamsString = sessionStorage.getItem("myParams");
     const urlSearchParams = new URLSearchParams(storedParamsString);
-    if (key === "returnUrl") {
-      return window.atob(getDecrypt(urlSearchParams.get(key), "_onerway_"));
-    }
 
     return urlSearchParams.get(key);
   };
@@ -137,12 +133,18 @@ const useOnerway = () => {
             ) {
               case "S": // status 为 'S' 表示成功
                 // 支付最终状态以异步通知结果为准
-                alert.success("Payment successful");
-                setTimeout(() => {
-                  // TODO B 站状态轮询
-                  const returnUrl = getParams("returnUrl") || "/pricing";
+
+                // A 站
+                if (getParams("spOrderId")) {
+                  const returnUrl = getParams("returnUrl");
                   location.href = `${returnUrl}?transaction_id=${txtInfo.transactionId}&order_id=${spOrderId}`;
-                }, 3000);
+                } else {
+                  setOrderInfo({
+                    id: spOrderId,
+                    status: ORDER_STATUS.PENDING,
+                  });
+                }
+
                 break;
               case "R": // status 为 'R' 表示需要3ds验证
                 // 当交易状态为 R 时，商户需要重定向到该URL完成部分交易，包括3ds验证
@@ -196,15 +198,6 @@ const useOnerway = () => {
 
     createOrder(id).then(checkout);
   }, []);
-
-  useEffect(() => {
-    if (order_id) {
-      setOrderInfo({
-        id: order_id,
-        status: ORDER_STATUS.PENDING,
-      });
-    }
-  }, [order_id]);
 
   return {
     creating,
