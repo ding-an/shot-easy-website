@@ -5,7 +5,6 @@ export default function OnerwayForm() {
 
   return (
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto py-4 w-full lg:w-[480px]">
-      <script src="/js/onerway.js"></script>
       {polling ? (
         <div className="text-center">Updating order status...</div>
       ) : (
