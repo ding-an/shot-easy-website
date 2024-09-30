@@ -46,6 +46,9 @@ import ABPricingPay from '@components/ABPricingPay'
           import cookie from '@utils/cookie'
           import { goToA } from '@components/payments/ab-pay';
 
+          // 支付完成后跳转
+          goToA();
+
           function removeParameter(url, paramName) {
             const urlObj = new URL(url);
             const params = new URLSearchParams(urlObj.search);
@@ -70,11 +73,7 @@ import ABPricingPay from '@components/ABPricingPay'
           if (channel) {
             document.getElementById('pricingWrapper').style.display = 'none'
             sessionStorage.setItem('myParams', urlSearchParams.toString());
-            if (channel === '18') {
-              goToA()
-            } else {
               location.replace(removeParameter(location.href, ['token', 'channel', 'returnUrl', 'clientSecret', 'spOrderId', 'payUrl', 'transaction_id', 'order_id']))
-            }
           } else {
             if (!sessionStorage.getItem('myParams')) {
               document.getElementById('pricingWrapper').style.display = 'block'
