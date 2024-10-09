@@ -21,9 +21,10 @@ export const getParams = (key: string) => {
 export const getOrderParamsFromA = () => {
   const spOrderId = getParams("spOrderId");
   const id = getParams("id");
+  const type = getParams("type");
 
-  if (spOrderId && id) {
-    return { spOrderId, id };
+  if (spOrderId && id && type) {
+    return { spOrderId, id, type };
   }
 };
 
