@@ -66,7 +66,7 @@ const useOnerway = () => {
     // @ts-ignore
     const province = window.cf_region_code || "CA";
     // @ts-ignore
-    const region = window.cf_country_code || "UK";
+    const region = window.cf_country_code || "US";
     const returnUrl = `${window.location.origin}/pricing`;
 
     try {
