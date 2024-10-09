@@ -5,7 +5,6 @@ import { useInterval } from "ahooks";
 import alert, { ToastPosition } from "@components/Toast";
 import { get, post } from "@utils/request";
 import { getOrderParamsFromA, getParams, goToA } from "./ab-pay";
-import cookie from "@utils/cookie";
 
 const ORDER_STATUS = {
   NOT_FOUND: 0,
