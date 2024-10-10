@@ -151,7 +151,7 @@ const useOnerway = () => {
             if (getParams('spOrderId')) {
               setTimeout(() => {
                 // 失败2S后跳回A站
-                goToA()
+                goToA(true)
               }, 2000)
             }
 					}
@@ -164,7 +164,7 @@ const useOnerway = () => {
           if (getParams('spOrderId')) {
             setTimeout(() => {
               // 失败2S后跳回A站
-              goToA()
+              goToA(true)
             }, 2000)
           }
 				},
@@ -196,7 +196,6 @@ const useOnerway = () => {
 					googlePayButtonType: 'buy', // 'book' | 'buy' | 'checkout' | 'donate' | 'order' | 'pay' | 'plain' | 'subscribe'
 					googlePayButtonColor: 'black', // 'black' | 'white'
 					googlePayEnvironment: 'TEST', // TEST PRODUCTION
-					buttonWidth: '100px', // 按钮宽度
 					buttonHeight: '40px', // 按钮高度
 					buttonRadius: '4px', // 按钮圆角边框
 				}

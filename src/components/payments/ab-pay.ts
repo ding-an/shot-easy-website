@@ -28,7 +28,12 @@ export const getOrderParamsFromA = () => {
   }
 };
 
-export const goToA = () => {
+export const goToA = (failed = false) => {
+  if (failed) {
+    // 支付失败，跳转回订单页面，不带订单轮询
+    location.href = `${getParams("returnUrl")}`;
+    return
+  }
   // id 为后台订单 id，spOrderId 为支付商交易 id
   const { id, spOrderId } = getOrderParamsFromA() || {};
   if (spOrderId && id) {
