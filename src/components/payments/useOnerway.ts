@@ -147,12 +147,26 @@ const useOnerway = () => {
 					} else {
 						// 交易失败
 						alert.error(respMsg || 'Payment failed')
+						// A 站
+            if (getParams('spOrderId')) {
+              setTimeout(() => {
+                // 失败2S后跳回A站
+                goToA()
+              }, 2000)
+            }
 					}
 				},
 				onError: function (err) {
 					//支付异常回调方法
 					console.log(err)
           alert.error(err.respMsg)
+					// A 站
+          if (getParams('spOrderId')) {
+            setTimeout(() => {
+              // 失败2S后跳回A站
+              goToA()
+            }, 2000)
+          }
 				},
 			}
       if (type === PAY_TYPE.card) {
