@@ -152,6 +152,7 @@ const useOnerway = () => {
 				onError: function (err) {
 					//支付异常回调方法
 					console.log(err)
+          alert.error(err.respMsg)
 				},
 			}
       if (type === PAY_TYPE.card) {
