@@ -205,7 +205,7 @@ export default function PricingCard() {
 									}
 								}}
 							>
-								Get started by Payssion
+								Pay with wallet
 							</a>
 						</div>
 					</div>
