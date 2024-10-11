@@ -195,7 +195,7 @@ const useOnerway = () => {
         config.config = {
 					googlePayButtonType: 'buy', // 'book' | 'buy' | 'checkout' | 'donate' | 'order' | 'pay' | 'plain' | 'subscribe'
 					googlePayButtonColor: 'black', // 'black' | 'white'
-					googlePayEnvironment: 'TEST', // TEST PRODUCTION
+					googlePayEnvironment: import.meta.env.PUBLIC_FIREBASE_ENV === 'staging' ? 'TEST' : 'PRODUCTION', // TEST PRODUCTION
 					buttonHeight: '40px', // 按钮高度
 					buttonRadius: '4px', // 按钮圆角边框
 				}
