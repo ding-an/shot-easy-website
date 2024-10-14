@@ -166,7 +166,9 @@ export default function PricingCard() {
 								Pay with Debit/Credit Card
 							</a>
 							<a
-								href={`/pricing/onerway?id=${product.id}&type=${PAY_TYPE.applepay}`}
+								href={`/pricing/onerway?id=${product.id}&type=${PAY_TYPE.applepay}&name=${
+									product.name
+								}&price=${product?.discount?.price || product.price}`}
 								className='text-white flex gap-2 justify-center items-center bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900'
 								onClick={() => {
 									const user = localStorage.getItem('user')
@@ -179,7 +181,9 @@ export default function PricingCard() {
 								Pay with <Apple />
 							</a>
 							<a
-								href={`/pricing/onerway?id=${product.id}&type=${PAY_TYPE.googlepay}`}
+								href={`/pricing/onerway?id=${product.id}&type=${PAY_TYPE.googlepay}&name=${
+									product.name
+								}&price=${product?.discount?.price || product.price}`}
 								className='text-white flex gap-2 justify-center items-center bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900'
 								onClick={() => {
 									const user = localStorage.getItem('user')
