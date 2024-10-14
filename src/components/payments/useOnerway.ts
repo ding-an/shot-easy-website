@@ -189,7 +189,7 @@ const useOnerway = () => {
 					applePayButtonColor: 'black', // 'black' | 'white' | 'white-outline'
 					buttonWidth: '100px', // 按钮宽度
 					buttonHeight: '40px', // 按钮高度
-					buttonRadius: '4px', // 按钮圆角边框
+					buttonRadius: '24px', // 按钮圆角边框
 				}
 			} else if (type === PAY_TYPE.googlepay) {
 				config.mode = 'GooglePay'
@@ -199,7 +199,7 @@ const useOnerway = () => {
 					googlePayEnvironment:
 						import.meta.env.PUBLIC_FIREBASE_ENV === 'staging' ? 'TEST' : 'PRODUCTION', // TEST PRODUCTION
 					buttonHeight: '40px', // 按钮高度
-					buttonRadius: '4px', // 按钮圆角边框
+					buttonRadius: '24px', // 按钮圆角边框
 				}
 			}
 			// @ts-ignore
