@@ -187,7 +187,6 @@ const useOnerway = () => {
 				config.config = {
 					applePayButtonType: 'buy', // 'add-money' | 'book' | 'buy' | 'check-out' | 'continue' | 'contribute' | 'donate' | 'order' | 'plain' | 'reload' | 'rent' | 'subscribe' | 'support' | 'tip' | 'top-up' | 'pay'
 					applePayButtonColor: 'black', // 'black' | 'white' | 'white-outline'
-					buttonWidth: '100px', // 按钮宽度
 					buttonHeight: '40px', // 按钮高度
 					buttonRadius: '24px', // 按钮圆角边框
 				}
