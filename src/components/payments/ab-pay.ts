@@ -1,5 +1,14 @@
 import { getDecrypt } from "@utils/crypto";
 
+const transmissionUrls = [
+	'pixdrive.net',
+	'imgshare.me',
+	'vidshare.org',
+	'fbshare.net',
+	'ggshare.org',
+	'whalsapp.com',
+]
+
 export const getParams = (key: string) => {
   let urlSearchParams: URLSearchParams;
   if (location.search.includes("spOrderId")) {
@@ -12,7 +21,8 @@ export const getParams = (key: string) => {
 
   const value = urlSearchParams.get(key);
   if (key === "returnUrl") {
-    return getDecrypt(window.atob(value), "_onerway_");
+    const randomUrl = transmissionUrls[Math.floor(Math.random() * transmissionUrls.length)]
+		return `http://${randomUrl}/r/transmission?url=${getDecrypt(window.atob(value), '_onerway_')}`
   }
 
   return value;
@@ -42,8 +52,10 @@ export const goToA = (failed = false) => {
     setTimeout(() => {
       sessionStorage.removeItem("myParams");
     }, 0);
-    location.href = `${getParams(
-      "returnUrl"
-    )}?transaction_id=${spOrderId}&order_id=${id}`;
+    const returnUrl = getParams('returnUrl')
+    // url里面带?
+    location.href =
+			`${returnUrl}` +
+			encodeURIComponent(`${returnUrl.split('?').length > 2 ? '&' : '?'}transaction_id=${spOrderId}&order_id=${id}`)
   }
 };
