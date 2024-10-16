@@ -187,7 +187,7 @@ const useOnerway = () => {
 				config.config = {
 					applePayButtonType: 'buy', // 'add-money' | 'book' | 'buy' | 'check-out' | 'continue' | 'contribute' | 'donate' | 'order' | 'plain' | 'reload' | 'rent' | 'subscribe' | 'support' | 'tip' | 'top-up' | 'pay'
 					applePayButtonColor: 'black', // 'black' | 'white' | 'white-outline'
-					buttonHeight: '40px', // 按钮高度
+					buttonHeight: '56px', // 按钮高度
 					buttonRadius: '24px', // 按钮圆角边框
 				}
 			} else if (type === PAY_TYPE.googlepay) {
@@ -197,7 +197,7 @@ const useOnerway = () => {
 					googlePayButtonColor: 'black', // 'black' | 'white'
 					googlePayEnvironment:
 						import.meta.env.PUBLIC_FIREBASE_ENV === 'staging' ? 'TEST' : 'PRODUCTION', // TEST PRODUCTION
-					buttonHeight: '40px', // 按钮高度
+					buttonHeight: '56px', // 按钮高度
 					buttonRadius: '24px', // 按钮圆角边框
 				}
 			}
