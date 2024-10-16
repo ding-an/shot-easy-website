@@ -30,7 +30,7 @@ export default function OnerwayForm() {
 								</div>
 								<div className='w-full h-[1px] bg-[rgba(21,25,31,0.12)]'></div>
 								<div className='flex justify-end'>
-									<div id='pacypay_checkout' className='lg:w-[232px] w-full rounded-3xl h-12'>
+									<div id='pacypay_checkout' className='w-full rounded-3xl h-14'>
 										Loading ...
 									</div>
 								</div>
