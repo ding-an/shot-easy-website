@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Spin } from 'antd'
 import PaymentSelect from './PaymentSelect'
 import { get } from '@utils/request'
+import Checkout from './Checkout/index.jsx'
 
 export default function PayssionSelect({
 	paymentList,
@@ -55,18 +56,22 @@ export default function PayssionSelect({
 					/>
 				</div>
 				<div className='w-full pt-6'>
-					<button
-						className={`bg-primary-600 hover:bg-primary-700 h-[56px] text-white w-full rounded-3xl text-base font-medium ${
-							paymentList.length
-								? !selectedPayment
-									? 'disabled cursor-not-allowed opacity-80'
-									: 'cursor-pointer'
-								: 'disabled cursor-not-allowed opacity-40 bg-gray-600 hover:bg-gray-700'
-						} ${creating && 'disabled cursor-not-allowed'}`}
-						onClick={() => paymentList.length ? createOrder(selectedPayment, product) : null}
-					>
-						{creating ? <Spin /> : 'Continue'}
-					</button>
+					{selectedPayment?.pmId === 'klarna' ? (
+						<Checkout product={product} payment={selectedPayment} />
+					) : (
+						<button
+							className={`bg-primary-600 hover:bg-primary-700 h-[56px] text-white w-full rounded-3xl text-base font-medium ${
+								paymentList.length
+									? !selectedPayment
+										? 'disabled cursor-not-allowed opacity-80'
+										: 'cursor-pointer'
+									: 'disabled cursor-not-allowed opacity-40 bg-gray-600 hover:bg-gray-700'
+							} ${creating && 'disabled cursor-not-allowed'}`}
+							onClick={() => (paymentList.length ? createOrder(selectedPayment, product) : null)}
+						>
+							{creating ? <Spin /> : 'Continue'}
+						</button>
+					)}
 				</div>
 			</div>
 		</div>
