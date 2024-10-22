@@ -4,6 +4,8 @@ import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import PricingCard from '@components/PricingCard'
 import ABPricingPay from '@components/ABPricingPay'
+const country =  Astro.request.headers.get('X-Vercel-IP-Country')
+Astro.cookies.set('cf_country_code', country);
 ---
 
 <Layout title='ImgTools - Light and easy-to-use screenshot tool'>
