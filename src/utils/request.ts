@@ -34,7 +34,7 @@ function compose_headers(
   const locale = cookie.get(website.locale_key, cookieText || "");
   baseHeaders.append("Accept-Language", locale || "en");
 
-	const cfCountryCode = cookie.get('countryCode', cookieText || '')
+	const cfCountryCode = cookie.get('cf_country_code', cookieText || '')
 	if (process.env.NODE_ENV === 'development') {
 		baseHeaders.append('X-COUNTRY', 'GB')
 	} else {
