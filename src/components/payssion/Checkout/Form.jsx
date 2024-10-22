@@ -61,7 +61,7 @@ const CreditCardForm = ({ cdnHost = 'https://files.deepswap.net', product, payme
 			const event = new Event('input', { bubbles: true })
 			e.target[name]?.dispatchEvent?.(event)
 
-			if (!form[name].value || form[name].errorMsg) {
+			if ((!form[name].value || form[name].errorMsg) && name !== 'address_line2') {
 				errors.push(name)
 			} else {
 				params[name] = form[name].value
