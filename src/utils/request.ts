@@ -34,14 +34,14 @@ function compose_headers(
   const locale = cookie.get(website.locale_key, cookieText || "");
   baseHeaders.append("Accept-Language", locale || "en");
 
-  const cfCountryCode = isBrowser
-    ? window.cf_country_code
-    : cookie.get("cf_country_code", cookieText || "");
-  if (process.env.NODE_ENV === "development") {
-    baseHeaders.append("X-COUNTRY", "GB");
-  } else {
-    cfCountryCode && baseHeaders.append("X-COUNTRY", cfCountryCode);
-  }
+	const cfCountryCode = isBrowser
+		? window.cf_country_code || 'HK'
+		: cookie.get('cf_country_code', cookieText || '')
+	if (process.env.NODE_ENV === 'development') {
+		baseHeaders.append('X-COUNTRY', 'HK')
+	} else {
+		cfCountryCode && baseHeaders.append('X-COUNTRY', cfCountryCode)
+	}
 
   if (headers) {
     for (const key in headers) {
