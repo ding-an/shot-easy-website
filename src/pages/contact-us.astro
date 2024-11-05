@@ -1,0 +1,32 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+---
+
+<Layout title='Contact Us' description='Contact Us'>
+    <Header />
+    <article
+        class='prose prose-zinc mx-auto container py-12 dark:prose-invert'
+    >
+        <div class='space-y-2 not-prose'>
+            <h1
+                class='text-4xl font-extrabold tracking-tight lg:text-5xl lg:leading-[3.5rem]'
+            >
+               CONTACT US
+            </h1>
+        </div>
+        <div class='mt-6'>
+        <p>
+        Name: Future Fun Intellengic Limited<br />
+Address: 17/F, Far East Finance Centre, No.16 Harcourt Road, Hong Kong
+        </p>
+        <p>
+            If you have any questions or concerns, please feel free to reach out
+            to us.<br />
+            Email: <a href="mailto:feedback@img-tools.app">feedback@img-tools.app</a>
+        </p>
+        </div>
+    </article>
+    <Footer />
+</Layout>

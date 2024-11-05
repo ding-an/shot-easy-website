@@ -1,0 +1,35 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+---
+
+<Layout title='About Us' description='About Us'>
+    <Header />
+    <article
+        class='prose prose-zinc mx-auto container py-12 dark:prose-invert'
+    >
+        <div class='space-y-2 not-prose'>
+            <h1
+                class='text-4xl font-extrabold tracking-tight lg:text-5xl lg:leading-[3.5rem]'
+            >
+                ABOUT US
+            </h1>
+        </div>
+        <div class='mt-6'>
+            <p>Welcome to Img-Tools!</p>
+            <p>
+            At Img-Tools, we specialize in providing a versatile array of advanced tools designed to empower you in enhancing and transforming your images with ease. Our innovative solutions are crafted to boost the quality and creativity of your visual projects, ensuring that your images reflect your unique vision.
+            </p>
+            <p>
+            Our mission is to offer an outstanding online experience that meets the diverse needs of our users. Backed by a team of skilled developers who are passionate about technology, we are committed to continuously improving our tools and processes to deliver optimal performance and satisfaction. We encourage you to discover the capabilities of our services on our website.
+            </p>
+            <p>
+            Customer satisfaction is at the heart of Img-Tools, and we highly value your input as it drives our ongoing development and innovation. If you have any questions or encounter any issues while using our tools, please explore our website's support resources or contact our friendly support team. You can find our contact information on the "<a href="/contact-us">Contact Us</a>" page.
+            </p>
+            <p>
+            Thank you for choosing Img-Tools. We look forward to supporting your creative journey and providing you with a rewarding experience!
+            </p>
+    </article>
+    <Footer />
+</Layout>
