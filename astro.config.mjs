@@ -33,4 +33,5 @@ export default defineConfig({
   ],
   output: "hybrid",
   adapter: vercel(), // 配置 Vercel 适配器
+  exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
 });

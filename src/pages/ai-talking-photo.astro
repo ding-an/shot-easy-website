@@ -1,0 +1,13 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import TalkingPhoto from '@components/talking-photo';
+---
+
+
+<Layout title='About Us' description='About Us'>
+    <Header />
+      <TalkingPhoto client:only="react" />
+    <Footer />
+</Layout>
