@@ -7,7 +7,7 @@ import { getWindowLocation, redirectTo } from './utils/route'
 
 
 const Dragger = ({ onChange, value, icon, btnProps, tips, accept, onClear }) => {
-  const isLoggedIn = true
+  const isLoggedIn = !!localStorage.getItem('user')
   const { getRootProps, getInputProps } = useDropzone({
     accept,
     maxFiles: 1,
@@ -27,7 +27,7 @@ const Dragger = ({ onChange, value, icon, btnProps, tips, accept, onClear }) => 
     if (!isLoggedIn) {
       e.stopPropagation()
       const { pathname } = await getWindowLocation()
-      redirectTo(`/signin?from=${pathname}`)
+      redirectTo(`/login?from=${pathname}`)
     }
   })
 

@@ -13,7 +13,7 @@ import { AudioContentFrom } from './controller/enums'
 import { useStore } from './store'
 
 const useHandlers = () => {
-  const isLoggedIn = true
+  const isLoggedIn = !!localStorage.getItem('user')
   const { contentFrom, setSettings, resetStore, setState } = useStore((state) => ({
     contentFrom: state.contentFrom,
     setSettings: state.setSettings,
@@ -30,7 +30,7 @@ const useHandlers = () => {
     try {
       if (!isLoggedIn) {
         const { pathname } = await getWindowLocation()
-        redirectTo(`/signin?from=${pathname}`)
+        redirectTo(`/login?from=${pathname}`)
         return
       }
       setState('generating', true)

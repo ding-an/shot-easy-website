@@ -22,5 +22,9 @@ export default {
     screenshot: {
         name: 'Screenshot',
         title: 'Take a screenshot'
+    },
+    talkingPhoto: {
+        name: 'AI Talking Photo',
+        title: 'AI Talking Photo'
     }
 }
