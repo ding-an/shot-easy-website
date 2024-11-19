@@ -47,13 +47,8 @@ function unit8ToArr(uint8Arr) {
   return byteArray
 }
 
-interface IGetImageDimensions {
-  width: number
-  height: number
-  imageData: ImageData
-}
 // 获取图片宽高
-export const getImageDimensions: (file: File | string) => Promise<IGetImageDimensions> = (file) => {
+export const getImageDimensions = (file) => {
   return new Promise((resolve) => {
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')
