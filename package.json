@@ -49,6 +49,7 @@
 		"react": "^18.0.0",
 		"react-compare-image": "^3.4.0",
 		"react-dom": "^18.0.0",
+		"react-dropzone": "14.2.3",
 		"react-easy-crop": "^5.0.7",
 		"react-filerobot-image-editor": "^4.6.3",
 		"react-konva": "^18.2.10",
@@ -57,7 +58,13 @@
 		"tailwindcss": "^3.0.24",
 		"tinykeys": "^2.1.0",
 		"typescript": "^5.2.2",
-		"uuid": "^10.0.0"
+		"uuid": "^10.0.0",
+		"@ffmpeg/ffmpeg": "^0.12.10",
+		"@ffmpeg/util": "^0.12.1",
+		"blueimp-load-image": "^5.16.0",
+		"pako": "2.1.0",
+		"lodash.kebabcase": "^4.1.1",
+		"daisyui": "4.12.13"
 	},
 	"packageManager": "pnpm@8.15.4+sha1.c85a4305534f76d461407b59277b954bac97b5c4"
 }

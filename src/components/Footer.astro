@@ -31,7 +31,6 @@ const langUrls = CONFIG.locals.map(item => {
         </div> -->
 		<div class='flex-1 flex-col gap-3 justify-start'>
 			<h3 class='font-bold text-lg mb-6'>About Us</h3>
-			<p class="mb-3">Future Fun Intellengic Limited</p>
 			<div class='flex gap-6 mb-3'>
 				<Image src='/icon-visa.svg' alt='Visa' width={32} height={32} />
 				<Image src='/icon-mastercard.svg' alt='MasterCard' width={32} height={32} />
@@ -62,6 +61,18 @@ const langUrls = CONFIG.locals.map(item => {
         class='hover:text-blue-500 underline'
       >
         Refund Policy
+      </a>
+      <a
+        href={getRelativeLocaleUrl(lang, '/about-us')}
+        class='hover:text-blue-500 underline'
+      >
+        About Us
+      </a>
+			<a
+        href={getRelativeLocaleUrl(lang, '/contact-us')}
+        class='hover:text-blue-500 underline'
+      >
+        Contact Us
       </a>
 		</div>
 	</div>

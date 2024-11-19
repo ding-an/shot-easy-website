@@ -22,5 +22,9 @@ export default {
     screenshot: {
         name: '截图',
         title: '在线截图'
+    },
+        talkingPhoto: {
+        name: 'AI Talking Photo',
+        title: 'AI Talking Photo'
     }
 };
