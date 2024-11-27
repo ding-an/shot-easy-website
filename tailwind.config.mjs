@@ -25,6 +25,10 @@ export default {
           950: "#1e1b4b",
         },
       },
+      borderRadius: {
+        '2.5xl': '20px',
+        '4xl': '32px'
+      },
     },
     fontFamily: {
       body: [
@@ -63,5 +67,8 @@ export default {
       ],
     },
   },
-  plugins: [require('daisyui'),require("@tailwindcss/typography")],
+  corePlugins: {
+    aspectRatio: false
+  },
+  plugins: [require('@tailwindcss/aspect-ratio'), require('daisyui'), require("@tailwindcss/typography")],
 };

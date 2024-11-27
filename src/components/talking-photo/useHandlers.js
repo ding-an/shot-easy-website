@@ -14,7 +14,7 @@ import { useStore } from './store'
 
 const useHandlers = () => {
   const isLoggedIn = !!localStorage.getItem('user')
-  const { contentFrom, setSettings, resetStore, setState } = useStore((state) => ({
+  const { contentFrom, setSettings, resetStore, setState, setTaskDetail } = useStore((state) => ({
     contentFrom: state.contentFrom,
     setSettings: state.setSettings,
     resetStore: state.resetStore,
