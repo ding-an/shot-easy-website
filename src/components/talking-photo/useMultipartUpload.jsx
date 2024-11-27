@@ -14,7 +14,7 @@ export default function useMultipartUpload(fileType) {
       return Promise.reject(new Error(errorMsg))
     }
     // aws 不能多传参数， expire 不要传
-    const { url, expire, fileId, ...uploadParams } = data
+    const { url, expire, fileId, ...uploadParams } = data.sign
     // FormData 浏览器自动设置
     // aws 没有返回任何内容
     function getFormData(data, file, contentType) {
