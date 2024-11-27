@@ -38,7 +38,7 @@ export const getVoiceChangeSetting = async () => {
 }
 
 export const postFilesSignatures = async (params) => {
-  const json = await post(`/users/me/signatures/s3`, params)
+  const json = await post(`/users/me/signatures/-/files`, params)
   return json
 }
 

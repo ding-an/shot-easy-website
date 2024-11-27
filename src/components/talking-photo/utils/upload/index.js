@@ -63,7 +63,7 @@ export default async function handleUpload(imgFile, fileType, otherOptions) {
 
 async function uploadToS3(params) {
   const { file, fileType, extension } = params
-  const { data, success, errorMsg } = await post('/users/me/signatures/s3', {
+  const { data, success, errorMsg } = await post('/users/me/signatures/-/files', {
     fileType,
     fileSize: file.size,
     extension
@@ -73,7 +73,7 @@ async function uploadToS3(params) {
   }
 
   // aws 不能多传参数， expire 不要传
-  const { url, expire, fileId, ...uploadParams } = data
+  const { url, expire,fileId, ...uploadParams } = data.sign
   // FormData 浏览器自动设置
   // aws 没有返回任何内容
   await post(url, getFormData(uploadParams, file, file.type))
