@@ -79,7 +79,7 @@ export const UPLOAD = {
   ALLOWED_VIDEO_TYPES: ['x-msvideo', 'quicktime', 'mp4', 'mov']
 }
 
-export const CDN_HOST = 'https://files.genzone.ai'
+export const CDN_HOST = 'https://files.img-tools.app'
 
 // 文件类型
 export const FILE_TYPE = {
