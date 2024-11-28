@@ -22,5 +22,9 @@ export default {
     screenshot: {
         name: 'ảnh chụp màn hình',
         title: 'chụp ảnh màn hình'
+    },
+        talkingPhoto: {
+        name: 'AI Talking Photo',
+        title: 'AI Talking Photo'
     }
 }

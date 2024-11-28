@@ -22,5 +22,9 @@ export default {
     screenshot: {
         name: 'capture d\'écran',
         title: 'prendre une capture d\'écran'
+    },
+        talkingPhoto: {
+        name: 'AI Talking Photo',
+        title: 'AI Talking Photo'
     }
 };
