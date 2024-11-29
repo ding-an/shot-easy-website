@@ -7,7 +7,7 @@ const {pathname, searchParams} = Astro.url;
 if (!/\/$/.test(pathname)) return Astro.redirect(`${pathname}/`, 308);
 // payment.net失败会带上这一串，重定向
 const reference = searchParams.get('reference');
-if (!Number.isNaN(Number(reference))) return Astro.redirect(`/pricing?status=failed`, 308);
+if (reference && !Number.isNaN(Number(reference))) return Astro.redirect(`/pricing?status=failed`, 308);
 ---
 
 <Layout title='ImgTools - Light and easy-to-use screenshot tool'>
