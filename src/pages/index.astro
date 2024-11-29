@@ -4,8 +4,10 @@ import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import IndexPage from '@components/IndexPage.astro';
 const { pathname, href } = Astro.url;
-// payment.net失败会带上这一串，重定向 以reference=一串数字结尾的正则
-if(/reference=\d+$/i.test(href)) {
+// 以reference=一串数字结尾的正则
+const regex = /reference=\d+$/;
+// payment.net失败会带上这一串，重定向 
+if(regex.test(href)) {
   return Astro.redirect(`/pricing?status=failed`, 308);
 }
 if (!/\/$/.test(pathname)) return Astro.redirect(`${pathname}/`, 308);
