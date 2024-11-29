@@ -33,7 +33,7 @@ const useHandlers = () => {
 			if (status === ORDER_STATUS.PAID) {
 				alert.success('payment successful')
 				removeQueryParams()
-        dispatch({
+				dispatch({
 					type: 'ORDERING',
 					payload: false,
 				})
