@@ -200,7 +200,7 @@ export default function LoginFrom({ type }) {
             isSubmit
               ? "bg-blue-600 hover:opacity-64"
               : "cursor-no-drop opacity-64"
-          } ${loading ? "loading pointer-events-none" : ""}`}
+          } ${loading ? "pointer-events-none" : ""}`}
         >
           {loading ? "loading..." : "Go with Email"}
         </button>

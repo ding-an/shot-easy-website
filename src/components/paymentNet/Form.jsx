@@ -31,12 +31,18 @@ const CreditCardForm = ({ cdnHost = website.cdn_host, product }) => {
 	const stateNames = states.map(i => i.name)
 	const submit = useMemoizedFn(e => {
 		e.preventDefault()
+		const form = e.target
+		// 触发所有表单元素的校验
+		const isValid = form.checkValidity()
+		// 显示校验信息
+		form.reportValidity()
+		if (!isValid) return
 		let state_code = '',
 			country_code = '',
 			is_state_optional = false
 		const country = countries.find(i => i.name === selectedCountry)
 		if (country) {
-			country_code = country.iso3
+			country_code = country.iso2
 			if (country.states.length === 0) {
 				is_state_optional = true
 				state_code = '-'
@@ -109,7 +115,6 @@ const CreditCardForm = ({ cdnHost = website.cdn_host, product }) => {
 						validator={val => validators.notEmpty(val)}
 						name='first_name'
 						maxLength='50'
-						required
 						disabled={ordering}
 					/>
 					<InputField
@@ -117,7 +122,6 @@ const CreditCardForm = ({ cdnHost = website.cdn_host, product }) => {
 						validator={val => validators.notEmpty(val)}
 						name='last_name'
 						maxLength='50'
-						required
 						disabled={ordering}
 					/>
 				</div>
@@ -129,8 +133,8 @@ const CreditCardForm = ({ cdnHost = website.cdn_host, product }) => {
 							list='countries'
 							datalist={countryNames}
 							validator={val => validators.option(val, countryNames)}
-							required
 							disabled={ordering}
+							maxLength={80}
 						/>
 					</div>
 					<div className='flex-1'>
@@ -142,6 +146,7 @@ const CreditCardForm = ({ cdnHost = website.cdn_host, product }) => {
 							datalist={stateNames}
 							ref={stateRef}
 							disabled={ordering}
+							maxLength={80}
 						/>
 					</div>
 					<div className='w-full lg:mt-0 lg:flex-1'>
@@ -150,7 +155,7 @@ const CreditCardForm = ({ cdnHost = website.cdn_host, product }) => {
 							placeholder='City'
 							validator={val => validators.notEmpty(val)}
 							disabled={ordering}
-							required
+							maxLength={80}
 						/>
 					</div>
 				</div>
@@ -161,7 +166,7 @@ const CreditCardForm = ({ cdnHost = website.cdn_host, product }) => {
 							placeholder='Billing Address'
 							validator={val => validators.notEmpty(val)}
 							disabled={ordering}
-							required
+							maxLength={200}
 						/>
 					</div>
 					<div className='flex-1'>
@@ -170,7 +175,6 @@ const CreditCardForm = ({ cdnHost = website.cdn_host, product }) => {
 							type='text'
 							name='postal_code'
 							validator={val => validators.reg(val, /^[\d a-zA-Z-]+$/g)}
-							required
 							maxLength='32'
 							disabled={ordering}
 						/>
@@ -178,11 +182,12 @@ const CreditCardForm = ({ cdnHost = website.cdn_host, product }) => {
 				</div>
 				<div className='flex space-x-2 xl:space-x-3'>
 					<InputField
+						type='email'
 						name='email'
 						placeholder='Email'
 						validator={val => validators.email(val)}
 						disabled={ordering}
-						required
+						maxLength={80}
 					/>
 				</div>
 				<div className='text-xs text-error'>{errorDes}</div>
