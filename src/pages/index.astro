@@ -21,6 +21,7 @@ if (!/\/$/.test(pathname)) return Astro.redirect(`${pathname}/`, 308);
         <Header />
         <IndexPage />
         <Footer />
+        <div>当前href: {href}</div>
     </main>
 </Layout>
 
