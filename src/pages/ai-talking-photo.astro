@@ -1,30 +1,25 @@
 ---
-// 禁用预渲染
-export const prerender = false;
-
 import Layout from '@layouts/Layout.astro';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
-import IndexPage from '@components/IndexPage.astro';
-const { pathname, search } = Astro.url;
-	// 以reference = 一串数字结尾的正则
-	const regex = /reference=\d+$/
-	// payment.net失败会带上这一串，重定向
-	if (regex.test(search)) {
-		return Astro.redirect(`/pricing?status=failed`, 308)
-	}
-if (!/\/$/.test(pathname)) return Astro.redirect(`${pathname}/`, 308);
+import TalkingPhoto from '@components/talking-photo';
 ---
 
-<Layout title='ImgTools - Light and easy-to-use screenshot tool'>
+
+<Layout title='AI Talking Photo' description='AI Talking Photo'>
     <main class="relative overflow-hidden min-h-screen flex flex-col">
         <div class="z-0 absolute w-80 h-60 bg-blue-600 blur-[80px] opacity-30 -top-20 -right-20"></div>
         <div class="z-0 absolute w-80 h-60 bg-blue-400 blur-[80px] opacity-30 top-40 left-40"></div>
         <div class="z-0 absolute w-80 h-60 bg-purple-400 blur-[80px] opacity-30 top-40 right-40"></div>
         <Header />
-        <IndexPage />
+<div class="container py-8 relative z-10 flex-1">
+    <h1 class="text-4xl text-center leading-[42px] font-extrabold mb-2 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">AI Talking Photo</h1>
+    <div class="pt-4 pb-12 min-h-[716px]">
+       <TalkingPhoto client:only="react" />
+    </div>
+</div>
         <Footer />
     </main>
 </Layout>
 
-<style></style>
+
