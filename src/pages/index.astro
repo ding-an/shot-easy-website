@@ -6,13 +6,8 @@ import Layout from '@layouts/Layout.astro';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import IndexPage from '@components/IndexPage.astro';
-const { pathname, search, searchParams } = Astro.url;
+const { pathname, search } = Astro.url;
 
-// A站 payment.net重定向
-const ext = searchParams.get('ext')
-if (ext) {
-  return Astro.redirect(ext, 308)
-}
 // 以reference = 一串数字结尾的正则
 const regex = /reference=\d+$/
 // payment.net失败会带上这一串，重定向
