@@ -5,6 +5,7 @@ import { Spin } from 'antd'
 import PaymentSelect from './PaymentSelect'
 import { get } from '@utils/request'
 import Checkout from './Checkout/index.jsx'
+import Processing from './Processing'
 
 export default function PayssionSelect({
 	paymentList,
@@ -74,6 +75,7 @@ export default function PayssionSelect({
 					)}
 				</div>
 			</div>
+			{polling && <Processing />}
 		</div>
 	)
 }

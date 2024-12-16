@@ -22,6 +22,6 @@ export const LANGUAGES_CODE = {
 const locals = Object.keys(LANGUAGES);
 
 export const CONFIG = {
-  website: "https://www.img-tools.app",
+  website: import.meta.env.VITE_PUBLIC_FIREBASE_ENV === 'staging' ? 'https://img-tools.relaxops.cc': "https://www.img-tools.app",
   locals,
 };

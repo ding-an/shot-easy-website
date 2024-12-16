@@ -5,6 +5,7 @@ import { get } from '@utils/request'
 import PayssionSelect from '@components/payssion/PayssionSelect'
 import useHandlers from './payssion/hooks/useHandlers'
 import { PAY_TYPE } from './payments/useOnerway'
+import PaymentNet from '@components/paymentNet'
 
 const features = [
 	['Individual configuration', 'No setup, or hidden fees', 'Credits'],
@@ -152,7 +153,8 @@ export default function PricingCard() {
 						</div>
 						<FeatureItems product={product} index={index} />
 						<div className='flex flex-col gap-2 mt-auto'>
-							<a
+							<PaymentNet product={product} />
+							{/* <a
 								href={`/pricing/onerway?id=${product.id}&type=${PAY_TYPE.card}`}
 								className='text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900'
 								onClick={() => {
@@ -164,8 +166,8 @@ export default function PricingCard() {
 								}}
 							>
 								Pay with Debit/Credit Card
-							</a>
-							<a
+							</a> */}
+							{/* <a
 								href={`/pricing/onerway?id=${product.id}&type=${PAY_TYPE.applepay}&name=${
 									product.name
 								}&price=${product?.discount?.price || product.price}`}
@@ -194,7 +196,7 @@ export default function PricingCard() {
 								}}
 							>
 								Pay with <Google />
-							</a>
+							</a> */}
 							<a
 								href='#'
 								className='text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900'
