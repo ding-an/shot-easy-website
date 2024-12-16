@@ -11,7 +11,7 @@ export default function PaymentNetAB() {
 			alert.success(
 				'Thank you for your payment! Credits have been added to your account. You can check your credit balance in the credit history.',
 				undefined,
-				100000
+				1000 * 60 * 60 * 24
 			)
 		} else if (status === 'cancel') {
 			alert.error('Payment failed. Please try again later.', undefined, 100000)
