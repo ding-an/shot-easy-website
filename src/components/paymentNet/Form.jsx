@@ -74,6 +74,7 @@ const CreditCardForm = ({ cdnHost = website.cdn_host, product }) => {
 		if (errors.length > 0) {
 			console.log('errors', errors, params)
 		} else {
+			if (!params.email || !params.phone) return
 			createOrder(params, product)
 		}
 	})
@@ -184,10 +185,20 @@ const CreditCardForm = ({ cdnHost = website.cdn_host, product }) => {
 					<InputField
 						type='email'
 						name='email'
-						placeholder='Email'
+						placeholder='Email Address(required*)'
 						validator={val => validators.email(val)}
 						disabled={ordering}
 						maxLength={80}
+						required
+					/>
+					<InputField
+						name='phone'
+						type='tel'
+						placeholder='phone(required*)'
+						validator={val => validators.notEmpty(val)}
+						maxLength={30}
+						disabled={ordering}
+						required
 					/>
 				</div>
 				<div className='text-xs text-error'>{errorDes}</div>
