@@ -10,7 +10,7 @@ export const ORDER_STATUS = {
 }
 
 export const FORM_FIELDS =
-	'first_name,last_name,country_name,postal_code,state_name,city,address_line1,email'.split(',')
+	'first_name,last_name,country_name,postal_code,state_name,city,address_line1,email,phone'.split(',')
 
 export const PRODUCT_TYPE = {
 	SUBSCRIPTION: 0,

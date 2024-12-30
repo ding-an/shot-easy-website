@@ -74,6 +74,7 @@ const useHandlers = () => {
 				city: form.city,
 				address: form.address_line1,
 				email: form.email,
+				mobilePhone: form.phone,
 			}
 			const { id, quantity } = product
 			const params = {
