@@ -259,11 +259,11 @@ export default function PricingCard() {
 					setActivedKey(value)
 				}}
 			/>
-			<div className='space-y-8 lg:grid lg:grid-cols-3 sm:gap-3 xl:gap-5 lg:space-y-0 min-h-[500px]'>
+			<div className='space-y-8 lg:flex sm:gap-3 xl:gap-5 lg:space-y-0 min-h-[500px] justify-center'>
 				{(activedKey === 1 ? products : preminumProducts).map((product, index) => (
 					<div
 						key={product.id}
-						className='flex flex-col p-3 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-4 dark:bg-gray-800 dark:text-white'
+						className='flex flex-col p-3 max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-4 dark:bg-gray-800 dark:text-white'
 					>
 						<h3 className='mb-4 text-2xl font-semibold'>{product.title}</h3>
 						<p className='font-light text-gray-500 sm:text-lg dark:text-gray-400'>{product.desc}</p>
@@ -272,6 +272,11 @@ export default function PricingCard() {
 								${product?.discount?.price || product.price}
 							</span>
 						</div>
+						{product?.discount?.description && (
+							<div className='font-light text-gray-500 sm:text-lg dark:text-gray-400 mb-2 -mt-6'>
+								{product?.discount?.description}
+							</div>
+						)}
 						{activedKey === 1 ? (
 							<FeatureItems product={product} index={index} />
 						) : (
