@@ -32,10 +32,8 @@ const ProductList = ({ dataSource }) => {
   )
 }
 
-interface TagProps {
-  tags: Tag[]
-}
-const Tags = ({ tags }: TagProps) => {
+
+const Tags = ({ tags }) => {
   return (
     <ul className="flex flex-wrap gap-2">
       {tags.map((i) => {
