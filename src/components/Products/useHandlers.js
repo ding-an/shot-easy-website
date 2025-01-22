@@ -47,7 +47,6 @@ const useHandlers = () => {
 				setSuccess(true)
 				setCode(promoCode)
 				clean()
-				toABurl()
 				// 订单失败了
 			} else if (status === ORDER_STATUS.FAILED) {
 				setPolling(false)
@@ -200,6 +199,7 @@ const useHandlers = () => {
 		success,
 		setSuccess,
 		code,
+		toABurl
 	}
 }
 

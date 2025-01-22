@@ -11,7 +11,7 @@ const Detail = ({ products }) => {
 	const [visible, setVisible] = useState(false)
 	const [currentProduct, setProduct] = useState(null)
 	const [userId, setUserId] = useState(null)
-	const { createAirwallexOrder, ordering, polling, success, setSuccess, code } = useHandlers()
+	const { createAirwallexOrder, ordering, polling, success, setSuccess, code, toABurl } = useHandlers()
 	const urlSearchParams = new URLSearchParams(window.location.search)
 	const { user = null } = Object.fromEntries(urlSearchParams.entries())
 
@@ -64,7 +64,10 @@ const Detail = ({ products }) => {
 			)}
 			{ordering && <Loading content='Waiting...' />}
 			{polling && <Loading />}
-			{success && <ResultModal code={user ? '' : code} onClose={() => setSuccess(false)} />}
+			{success && <ResultModal code={user ? '' : code} onClose={() => {
+				setSuccess(false)
+				toABurl()
+			}} />}
 		</>
 	)
 }
