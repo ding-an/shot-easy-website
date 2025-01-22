@@ -1,0 +1,32 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import ProductList from "@components/Products/ProductList";
+const isDev = import.meta.env.PUBLIC_FIREBASE_ENV === "staging";
+const products = isDev
+  ? (await import("@components/Products/products.dev.json")).default
+  : (await import("@components/Products/products.json")).default;
+---
+
+<Layout title="ImgTools - Light and easy-to-use screenshot tool">
+  <main class="relative overflow-hidden min-h-screen flex flex-col">
+    <div
+      class="z-0 absolute w-80 h-60 bg-blue-600 blur-[80px] opacity-30 -top-20 -right-20"
+    >
+    </div>
+    <div
+      class="z-0 absolute w-80 h-60 bg-blue-400 blur-[80px] opacity-30 top-40 left-40"
+    >
+    </div>
+    <div
+      class="z-0 absolute w-80 h-60 bg-purple-400 blur-[80px] opacity-30 top-40 right-40"
+    >
+    </div>
+    <Header />
+          <div class=" mx-auto  max-w-[1200px]  px-4 text-white/94 container py-8 relative z-10 flex-1">
+        <ProductList dataSource={products} />
+      </div>
+    <Footer />
+  </main>
+</Layout>
