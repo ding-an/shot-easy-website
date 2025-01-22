@@ -1,6 +1,8 @@
 import { btn, tag2 } from "./style";
+import useHandlers from "./useHandlers";
 
 const Detail = ({ products }) => {
+  const { createAirwallexOrder } = useHandlers()
   return <div
     className="mt-6 flex flex-nowrap gap-3 overflow-x-auto xl:mt-0 xl:flex-1 xl:gap-5"
   >
@@ -17,12 +19,12 @@ const Detail = ({ products }) => {
           <div className="text-white/60 line-through xl:mt-1 xl:text-sm">
             {i.originalPrice}
           </div>
-          <a
-            href=""
+          <div
             className={`${btn} mt-4 flex items-center justify-center xl:mt-[30px]`}
+            onClick={() => createAirwallexOrder(i)}
           >
             BUY
-          </a>
+          </div>
         </div>
       ))
     }
