@@ -2,31 +2,62 @@
 // 禁用预渲染
 export const prerender = false;
 
-import Layout from '@layouts/Layout.astro';
-import Header from '@components/Header.astro';
-import Footer from '@components/Footer.astro';
-import IndexPage from '@components/IndexPage.astro';
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import IndexPage from "@components/IndexPage.astro";
 const { pathname, search } = Astro.url;
 
 // 以reference = 一串数字结尾的正则
-const regex = /reference=\d+$/
+const regex = /reference=\d+$/;
 // payment.net失败会带上这一串，重定向
 if (regex.test(search)) {
-  return Astro.redirect(`/payment?status=cancel`, 308)
+  return Astro.redirect(`/payment?status=cancel`, 308);
   // return Astro.redirect(`/pricing?status=failed`, 308)
 }
 if (!/\/$/.test(pathname)) return Astro.redirect(`${pathname}/`, 308);
+
+const ext = Astro.url.searchParams.get("ext");
+if (ext) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.PUBLIC_BACKEND_URL}/redemption/decrypt-purchase-data?ext=${encodeURIComponent(ext)}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    const json = await response.json();
+    if (json.data) {
+      return Astro.redirect(
+        `/products/${json.data.productId}?user=${json.data.userId}&ext=${encodeURIComponent(
+          ext
+        )}`
+      );
+    }
+  } catch (err) {}
+}
 ---
 
-<Layout title='ImgTools - Light and easy-to-use screenshot tool'>
-    <main class="relative overflow-hidden min-h-screen flex flex-col">
-        <div class="z-0 absolute w-80 h-60 bg-blue-600 blur-[80px] opacity-30 -top-20 -right-20"></div>
-        <div class="z-0 absolute w-80 h-60 bg-blue-400 blur-[80px] opacity-30 top-40 left-40"></div>
-        <div class="z-0 absolute w-80 h-60 bg-purple-400 blur-[80px] opacity-30 top-40 right-40"></div>
-        <Header />
-        <IndexPage />
-        <Footer />
-    </main>
+<Layout title="ImgTools - Light and easy-to-use screenshot tool">
+  <main class="relative overflow-hidden min-h-screen flex flex-col">
+    <div
+      class="z-0 absolute w-80 h-60 bg-blue-600 blur-[80px] opacity-30 -top-20 -right-20"
+    >
+    </div>
+    <div
+      class="z-0 absolute w-80 h-60 bg-blue-400 blur-[80px] opacity-30 top-40 left-40"
+    >
+    </div>
+    <div
+      class="z-0 absolute w-80 h-60 bg-purple-400 blur-[80px] opacity-30 top-40 right-40"
+    >
+    </div>
+    <Header />
+    <IndexPage />
+    <Footer />
+  </main>
 </Layout>
 
 <style></style>
