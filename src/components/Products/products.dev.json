@@ -57,7 +57,7 @@
     "ratio_4_3": "https://files.img-tools.app/products/details/pdf-tools.png"
   },
   {
-    "id": "620071007",
+    "id": "620021007",
     "platform": 0,
     "platform_name": "DS PRO",
     "name": "DS PRO Code-20 Credits",
@@ -76,7 +76,7 @@
     "ratio_4_3": "https://files.img-tools.app/products/details/deepswap.png"
   },
   {
-    "id": "620071008",
+    "id": "620021008",
     "platform": 0,
     "platform_name": "DS PRO",
     "name": "DS PRO Code-100 Credits",
@@ -94,6 +94,25 @@
     "ratio_16_9": "https://files.img-tools.app/products/deepswap.png",
     "ratio_4_3": "https://files.img-tools.app/products/details/deepswap.png"
   },
+  {
+    "id": "620021009",
+    "platform": 0,
+    "platform_name": "DS PRO",
+    "name": "DS PRO Code-500 Credits",
+    "price": "$399.99",
+    "originalPrice": "$499.99",
+    "tags": [
+      {
+        "type": "ghost",
+        "label": "20% off"
+      }
+    ],
+    "status": 1,
+    "discount": "20%",
+    "short_name": "500 Credits",
+    "ratio_16_9": "https://files.img-tools.app/products/deepswap.png",
+    "ratio_4_3": "https://files.img-tools.app/products/details/deepswap.png"
+  }
   {
     "id": "7",
     "platform": 2,
