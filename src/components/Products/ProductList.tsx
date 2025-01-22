@@ -11,7 +11,7 @@ const ProductList = ({ dataSource }) => {
         return (
           <li key={id} className="w-[calc(50%-6px)] xl:w-[calc(33%-22px)]">
             <div className="flex h-full flex-col rounded-xl bg-[#222b38] xl:rounded-2.5xl">
-              <div className="aspect-w-[173] aspect-h-[98] overflow-hidden rounded-2xl xl:aspect-w-[378] xl:aspect-h-[212] xl:rounded-3xl">
+              <div className="aspect-w-[173] aspect-h-[98] overflow-hidden rounded-2xl xl:aspect-w-[378] xl:aspect-h-[212] xl:rounded-2.5xl">
                 <img src={ratio_16_9} alt="" />
               </div>
               <div className="relative flex-1 p-3 xl:p-5">
@@ -21,7 +21,7 @@ const ProductList = ({ dataSource }) => {
                 <Tags tags={tags} />
                 <div className="h-16 xl:h-22" />
                 <div className="absolute bottom-0 left-0 right-0 p-3 xl:p-5">
-                    <a className={btn} href={`/products/${id}`}>BUY</a>
+                  <a className={btn} href={`/products/${id}`}>BUY</a>
                 </div>
               </div>
             </div>
@@ -32,10 +32,8 @@ const ProductList = ({ dataSource }) => {
   )
 }
 
-interface TagProps {
-  tags: Tag[]
-}
-const Tags = ({ tags }: TagProps) => {
+
+const Tags = ({ tags }) => {
   return (
     <ul className="flex flex-wrap gap-2">
       {tags.map((i) => {

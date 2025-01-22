@@ -29,7 +29,7 @@ export async function getStaticPaths() {
 const { intro, product, products } = Astro.props;
 ---
 
-<Layout title="ImgTools - Light and easy-to-use screenshot tool">
+<Layout title={product.name}>
   <main class="relative overflow-hidden min-h-screen flex flex-col">
     <div
       class="z-0 absolute w-80 h-60 bg-blue-600 blur-[80px] opacity-30 -top-20 -right-20"
