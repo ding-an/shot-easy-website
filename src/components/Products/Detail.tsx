@@ -1,12 +1,12 @@
 import { btn, tag2 } from "./style";
 import Loading from "./Loading";
+import ResultModal from "./ResultModal";
 import useHandlers from "./useHandlers";
 
 const Detail = ({ products }) => {
-  const { createAirwallexOrder, ordering, polling } = useHandlers()
+  const { createAirwallexOrder, ordering, polling, success, setSuccess, code } = useHandlers()
   const urlSearchParams = new URLSearchParams(window.location.search);
   const { user = null } = Object.fromEntries(urlSearchParams.entries());
-
 
   return (
     <>
@@ -43,6 +43,7 @@ const Detail = ({ products }) => {
       </div>
       {ordering && <Loading content="Waiting..." />}
       {polling && <Loading />}
+      {success && <ResultModal code={user ? '' : code} onClose={() => setSuccess(false)} />}
     </>
   )
 }
