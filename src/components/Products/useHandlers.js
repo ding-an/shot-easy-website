@@ -24,7 +24,7 @@ const useHandlers = () => {
   const [code, setCode] = useState('')
 
   const urlSearchParams = new URLSearchParams(window.location.search);
-  const { payload, ext = null, user = null } = Object.fromEntries(urlSearchParams.entries());
+  const { payload, ext = null } = Object.fromEntries(urlSearchParams.entries());
   let clean
 
   const toABurl = useMemoizedFn(() => {
@@ -65,7 +65,7 @@ const useHandlers = () => {
   }, [clean, orderInfo, toABurl])
 
   // 创建airwallex订单
-  const createAirwallexOrder = async ({ id, platform }) => {
+  const createAirwallexOrder = async ({ id, platform }, user) => {
     try {
       setOrdering(true)
       // 如果不是ds报错

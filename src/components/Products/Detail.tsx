@@ -3,6 +3,8 @@ import useHandlers from "./useHandlers";
 
 const Detail = ({ products }) => {
   const { createAirwallexOrder } = useHandlers()
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const { user = null } = Object.fromEntries(urlSearchParams.entries());
   return <div
     className="mt-6 flex flex-nowrap gap-3 overflow-x-auto xl:mt-0 xl:flex-1 xl:gap-5"
   >
@@ -21,7 +23,11 @@ const Detail = ({ products }) => {
           </div>
           <div
             className={`${btn} mt-4 flex items-center justify-center xl:mt-[30px]`}
-            onClick={() => createAirwallexOrder(i)}
+            onClick={() => {
+              if (user) {
+                createAirwallexOrder(i, user)
+              }
+            }}
           >
             BUY
           </div>
