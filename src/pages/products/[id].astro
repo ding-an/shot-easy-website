@@ -87,3 +87,15 @@ const { intro, product, products } = Astro.props;
   </main>
   <Footer />
 </Layout>
+
+<style>
+  .intro :global(section + section) {
+    margin-top: 24px;
+  }
+
+  .intro :global(h3) {
+    font-weight: 600;
+    color: rgb(0 0 0);
+    margin-bottom: 8px;
+  }
+</style>
