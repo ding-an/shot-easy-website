@@ -23,8 +23,12 @@ export default {
         name: 'ảnh chụp màn hình',
         title: 'chụp ảnh màn hình'
     },
-        talkingPhoto: {
+    talkingPhoto: {
         name: 'AI Talking Photo',
         title: 'AI Talking Photo'
+    },
+    marketplace: {
+        name: 'Chợ trực tuyến',
+        title: 'Chợ trực tuyến'
     }
 }
