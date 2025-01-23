@@ -13,14 +13,16 @@ export async function getStaticPaths() {
     .default;
 
   return products.map((product) => {
-    const { id, platform } = product;
+    const { id, platform, type } = product;
     const intro = intros.find((i) => i.platform === platform).intro;
     return {
       params: { id },
       props: {
         intro,
         product,
-        products: products.filter((i) => i.platform === platform),
+        products: products.filter(
+          (i) => i.platform === platform && i.type === type
+        ),
       },
     };
   });
