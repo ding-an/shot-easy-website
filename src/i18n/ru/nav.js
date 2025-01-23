@@ -23,8 +23,12 @@ export default {
         name: 'скриншот',
         title: 'сделать скриншот'
     },
-        talkingPhoto: {
+    talkingPhoto: {
         name: 'AI Talking Photo',
         title: 'AI Talking Photo'
+    },
+    marketplace: {
+        name: 'Маркетплейс',
+        title: 'Маркетплейс'
     }
 };

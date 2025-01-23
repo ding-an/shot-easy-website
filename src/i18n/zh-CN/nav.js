@@ -23,8 +23,12 @@ export default {
         name: '截图',
         title: '在线截图'
     },
-        talkingPhoto: {
+    talkingPhoto: {
         name: 'AI Talking Photo',
         title: 'AI Talking Photo'
+    },
+    marketplace: {
+        name: '商城',
+        title: '商城'
     }
 };
