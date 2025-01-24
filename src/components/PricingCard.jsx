@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react'
 import { get } from '@utils/request'
 import PayssionSelect from '@components/payssion/PayssionSelect'
 import useHandlers from './payssion/hooks/useHandlers'
-import { PAY_TYPE } from './payments/useOnerway'
 import PaymentNet from '@components/paymentNet'
+import Airwallex from './pricing/Airwallex'
+import AirwallexCallback from './pricing/Airwallex/Callback'
 
 const features = [
 	['Individual configuration', 'No setup, or hidden fees', 'Credits'],
@@ -285,6 +286,7 @@ export default function PricingCard() {
 
 						<div className='flex flex-col gap-2 mt-auto'>
 							<PaymentNet product={product} />
+							<Airwallex product={product}/>
 							{/* <a
 								href={`/pricing/onerway?id=${product.id}&type=${PAY_TYPE.card}`}
 								className='text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900'
@@ -349,6 +351,7 @@ export default function PricingCard() {
 				))}
 			</div>
 			<PayssionSelect {...handlers} product={product} />
+			<AirwallexCallback />
 		</>
 	)
 }
