@@ -23,8 +23,12 @@ export default {
         name: 'Screenshot',
         title: 'Take a screenshot'
     },
-        talkingPhoto: {
+    talkingPhoto: {
         name: 'AI Talking Photo',
         title: 'AI Talking Photo'
+    },
+    marketplace: {
+        name: 'Marketplace',
+        title: 'Marketplace'
     }
 }

@@ -23,8 +23,12 @@ export default {
         name: 'capture d\'écran',
         title: 'prendre une capture d\'écran'
     },
-        talkingPhoto: {
+    talkingPhoto: {
         name: 'AI Talking Photo',
         title: 'AI Talking Photo'
+    },
+    marketplace: {
+        name: 'Marché',
+        title: 'Marché'
     }
 };
