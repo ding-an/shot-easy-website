@@ -1,86 +1,117 @@
 ---
-import Layout from '@layouts/Layout.astro';
-import Header from '@components/Header.astro';
-import Footer from '@components/Footer.astro';
-import PricingCard from '@components/PricingCard'
-import ABPricingPay from '@components/ABPricingPay'
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import PricingCard from "@components/PricingCard";
+import ABPricingPay from "@components/ABPricingPay";
 ---
 
-<Layout title='ImgTools - Light and easy-to-use screenshot tool'>
-    <main class="relative overflow-hidden min-h-screen flex flex-col">
-        <div class="z-0 absolute w-80 h-60 bg-blue-600 blur-[80px] opacity-30 -top-20 -right-20"></div>
-        <div class="z-0 absolute w-80 h-60 bg-blue-400 blur-[80px] opacity-30 top-40 left-40"></div>
-        <div class="z-0 absolute w-80 h-60 bg-purple-400 blur-[80px] opacity-30 top-40 right-40"></div>
-        <div id="pricingWrapper" class="hidden">
-          <Header />
-          <section class="bg-white dark:bg-gray-900">
-              <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-                  <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Designed for business teams like yours</h2>
-                      <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Here at ImgTools we focus on design markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
-                  </div>
-                  <div class="my-8 text-center">
-                      Current Credits: <span id="current-credits">0</span>
-                      <script>
-                          import { get } from '@utils/request';
-                          try {
-                            const user = JSON.parse(localStorage.getItem('user'));
-                            if (user) {
-                                const json = await get(`/v2/users/me/equities`);
-                                document.getElementById('current-credits').innerText = json.data.credits
-                            }
-                          } catch(err) {
-                            console.log(err)
-                            // user === 'undefined'
-                            localStorage.removeItem('user');
-                          }
-                      </script>
-                  </div>
-                  <PricingCard client:only="react" />
-              </div>
-            </section>
-          <Footer />
+<Layout title="ImgTools - Light and easy-to-use screenshot tool">
+  <main class="relative overflow-hidden min-h-screen flex flex-col">
+    <div
+      class="z-0 absolute w-80 h-60 bg-blue-600 blur-[80px] opacity-30 -top-20 -right-20"
+    >
+    </div>
+    <div
+      class="z-0 absolute w-80 h-60 bg-blue-400 blur-[80px] opacity-30 top-40 left-40"
+    >
+    </div>
+    <div
+      class="z-0 absolute w-80 h-60 bg-purple-400 blur-[80px] opacity-30 top-40 right-40"
+    >
+    </div>
+    <div id="pricingWrapper" class="hidden">
+      <Header />
+      <section class="bg-white dark:bg-gray-900">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+          <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+            <h2
+              class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
+            >
+              Designed for business teams like yours
+            </h2>
+            <p
+              class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400"
+            >
+              Here at ImgTools we focus on design markets where technology,
+              innovation, and capital can unlock long-term value and drive
+              economic growth.
+            </p>
+          </div>
+          <div class="my-8 text-center">
+            Current Credits: <span id="current-credits">0</span>
+            <script>
+              import { get } from "@utils/request";
+              try {
+                const user = JSON.parse(localStorage.getItem("user"));
+                if (user) {
+                  const json = await get(`/v2/users/me/equities`);
+                  document.getElementById("current-credits").innerText =
+                    json.data.credits;
+                }
+              } catch (err) {
+                console.log(err);
+                // user === 'undefined'
+                localStorage.removeItem("user");
+              }
+            </script>
+          </div>
+          <PricingCard client:only="react" />
         </div>
-        <ABPricingPay client:only='react' />
-        <script>
-          import cookie from '@utils/cookie'
-          import { goToA } from '@components/payments/ab-pay';
+      </section>
+      <Footer />
+    </div>
+    <ABPricingPay client:only="react" />
+    <script>
+      import cookie from "@utils/cookie";
+      import { goToA } from "@components/payments/ab-pay";
 
-          // 支付完成后跳转
-          goToA();
+      // 支付完成后跳转
+      goToA();
 
-          function removeParameter(url, paramName) {
-            const urlObj = new URL(url);
-            const params = new URLSearchParams(urlObj.search);
-            if (Array.isArray(paramName)) {
-              paramName.forEach(param => {
-                params.delete(param)
-              })
-            } else {
-              params.delete(paramName);
-            }
-            urlObj.search = params.toString();
-            return urlObj.toString();
-          }
+      function removeParameter(url, paramName) {
+        const urlObj = new URL(url);
+        const params = new URLSearchParams(urlObj.search);
+        if (Array.isArray(paramName)) {
+          paramName.forEach((param) => {
+            params.delete(param);
+          });
+        } else {
+          params.delete(paramName);
+        }
+        urlObj.search = params.toString();
+        return urlObj.toString();
+      }
 
-          const urlSearchParams = new URLSearchParams(window.location.search)
-          const token = urlSearchParams.get('token')
-          const channel = urlSearchParams.get('channel')
-          if (token) {
-            cookie.set('access_token', token, 31536000000)
-          }
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const token = urlSearchParams.get("token");
+      const channel = urlSearchParams.get("channel");
+      if (token) {
+        cookie.set("access_token", token, 31536000000);
+      }
 
-          if (channel) {
-            document.getElementById('pricingWrapper').style.display = 'none'
-            sessionStorage.setItem('myParams', urlSearchParams.toString());
-              location.replace(removeParameter(location.href, ['token', 'channel', 'returnUrl', 'clientSecret', 'spOrderId', 'payUrl', 'transaction_id', 'order_id']))
-          } else {
-            if (!sessionStorage.getItem('myParams')) {
-              document.getElementById('pricingWrapper').style.display = 'block'
-            }
-          }
-        </script>
-    </main>
+      if (channel) {
+        document.getElementById("pricingWrapper").style.display = "none";
+        sessionStorage.setItem("myParams", urlSearchParams.toString());
+        location.replace(
+          removeParameter(location.href, [
+            "token",
+            "channel",
+            "returnUrl",
+            "clientSecret",
+            "spOrderId",
+            "payUrl",
+            "transaction_id",
+            "order_id",
+          ])
+        );
+      } else {
+        if (!sessionStorage.getItem("myParams")) {
+          document.getElementById("pricingWrapper").style.display = "block";
+        }
+      }
+    </script>
+  </main>
 </Layout>
 
 <style></style>
