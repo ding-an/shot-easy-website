@@ -71,8 +71,7 @@ const useHandlers = () => {
 				alert.error(errorMsg)
 			}
 			if (data?.payUrl) {
-				console.log('%c [  ]-32', 'font-size:13px; background:pink; color:#bf2c9f;', data.payUrl)
-				// location.href = data.payUrl
+				location.href = data.payUrl
 			}
 		} catch (err) {
 			alert.error(err.message)
