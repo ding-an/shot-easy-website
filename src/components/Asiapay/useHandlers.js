@@ -62,8 +62,8 @@ const useHandlers = () => {
 				quantity,
 				region: 'USA',
 				currency: 'USD',
-				returnUrl: `${url}/pricing`,
-				cancelUrl: `${url}/pricing`,
+				returnUrl: `${url}/payment?status=success`,
+				cancelUrl: `${url}/payment?status=cancel`,
 			}
 			// 创建订单
 			const { data, success, errorMsg } = await post('/users/me/orders', params)
