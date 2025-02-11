@@ -407,9 +407,7 @@ const Tabs = ({ activedKey, onClick }) => {
 			{tabs.map(({ label, value }) => (
 				<li
 					key={value}
-					className={`relative flex h-full cursor-pointer items-center font-bold ${
-						activedKey === value ? 'text-white/96' : 'text-white/64'
-					}`}
+					className={`relative flex h-full cursor-pointer items-center font-bold text-gray-900`}
 					onClick={() => {
 						onClick(value)
 					}}
