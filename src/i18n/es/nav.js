@@ -26,5 +26,9 @@ export default {
     talkingPhoto: {
         name: 'AI Talking Photo',
         title: 'AI Talking Photo'
+    },
+    marketplace: {
+        name: 'Mercado',
+        title: 'Mercado'
     }
 };

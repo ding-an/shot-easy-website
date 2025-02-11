@@ -64,7 +64,7 @@ const useHandlers = () => {
 				type: 'ORDERING',
 				payload: true,
 			})
-
+      const url = window.location.origin
 			const payInfo = {
 				firstName: form.first_name,
 				lastName: form.last_name,
@@ -74,6 +74,7 @@ const useHandlers = () => {
 				city: form.city,
 				address: form.address_line1,
 				email: form.email,
+				mobilePhone: form.phone,
 			}
 			const { id, quantity } = product
 			const params = {
@@ -82,7 +83,7 @@ const useHandlers = () => {
 				quantity,
 				region: 'USA',
 				currency: 'USD',
-				returnUrl: `${window.location.origin}/pricing`,
+				returnUrl: `${url}/payment`,
 				pnetExtra: payInfo,
 			}
 
@@ -91,12 +92,12 @@ const useHandlers = () => {
 			if (!success) {
 				alert.error(errorMsg)
 			}
-			const successUrl = `${window.location.origin}/pricing?20_order_id=${data.id}&status=success`
-			const failUrl = `${window.location.origin}/pricing?status=failed`
+			const successUrl = `${url}/payment?status=success`
+			const cancelUrl = `${url}/payment?status=cancel`
 			if (data?.payUrl) {
 				location.href =
 					data.payUrl +
-					`?success_url=${encodeURIComponent(successUrl)}&cancel_url=${encodeURIComponent(failUrl)}`
+					`?success_url=${encodeURIComponent(successUrl)}&cancel_url=${encodeURIComponent(cancelUrl)}`
 			}
 			dispatch({
 				type: 'CLOSE_MODAL',
