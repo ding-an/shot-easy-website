@@ -7,6 +7,7 @@ import useHandlers from './payssion/hooks/useHandlers'
 import PaymentNet from '@components/paymentNet'
 import Airwallex from './pricing/Airwallex'
 import AirwallexCallback from './pricing/Airwallex/Callback'
+import Asiapay from '@components/Asiapay'
 
 const features = [
 	['Individual configuration', 'No setup, or hidden fees', 'Credits'],
@@ -285,21 +286,9 @@ export default function PricingCard() {
 						)}
 
 						<div className='flex flex-col gap-2 mt-auto'>
+							<Asiapay product={product} />
 							<PaymentNet product={product} />
 							<Airwallex product={product}/>
-							{/* <a
-								href={`/pricing/onerway?id=${product.id}&type=${PAY_TYPE.card}`}
-								className='text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900'
-								onClick={() => {
-									const user = localStorage.getItem('user')
-									if (!user) {
-										const login = document.getElementById('login')
-										login.click()
-									}
-								}}
-							>
-								Pay with Debit/Credit Card
-							</a> */}
 							{/* <a
 								href={`/pricing/onerway?id=${product.id}&type=${PAY_TYPE.applepay}&name=${
 									product.name
