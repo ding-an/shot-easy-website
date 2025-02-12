@@ -44,7 +44,9 @@ export default function PayssionSelect({
 				<div>
 					<h1 className='font-bold text-xl'>Select Payment Method</h1>
 					<div className='text-base opacity-80 flex justify-between mt-3'>
-						<div>Buy {product?.credits} Credits</div>
+						<div>
+							{product?.productTypeDes}&nbsp;•&nbsp;{product?.name}
+						</div>
 						<div>${product?.discount?.price || product?.price}</div>
 					</div>
 					<div className='h-[1px] bg-black opacity-40 w-full my-3'></div>
